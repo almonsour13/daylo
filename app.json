@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "expo-setup",
-    "slug": "expo-setup",
+    "name": "Daylo",
+    "slug": "daylo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "exposetup",
+    "scheme": "daylo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
