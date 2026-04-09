@@ -53,22 +53,22 @@ export default function BottomNavBar() {
                         const href = item.href;
                         const isItemActive = isActive(href);
 
-                        // if (item.label === "__fab__") {
-                        //     return (
-                        //         <Pressable
-                        //             key={item.label}
-                        //             onPress={() => router.push(href)}
-                        //         >
-                        //             <View className="p-4 aspect-square bg-black rounded-full">
-                        //                 <Feather
-                        //                     name={item.icon}
-                        //                     size={20}
-                        //                     color="white"
-                        //                 />
-                        //             </View>
-                        //         </Pressable>
-                        //     );
-                        // }
+                        if (item.label === "__fab__") {
+                            return (
+                                <Pressable
+                                    key={item.label}
+                                    onPress={() => router.push(href)}
+                                >
+                                    <View className="p-4 aspect-square bg-black rounded-full">
+                                        <Feather
+                                            name={item.icon}
+                                            size={20}
+                                            color="white"
+                                        />
+                                    </View>
+                                </Pressable>
+                            );
+                        }
 
                         return (
                             <Pressable
