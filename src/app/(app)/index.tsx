@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import HomeScreen from "@/features/home";
+import ScreenWrapper from "@/shared/components/layout/screen-wrapper";
 
 export default function Index() {
     return (
-        <View>
-            <Text>Hola Mundo</Text>
-        </View>
+        <ScreenWrapper>
+            <HomeScreen />
+        </ScreenWrapper>
     );
 }

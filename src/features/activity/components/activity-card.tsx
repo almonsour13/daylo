@@ -1,3 +1,8 @@
+import CategoryBadge from "@/shared/components/ui/activity-card/category-badge";
+import DateBadge from "@/shared/components/ui/activity-card/date-badge";
+import DurationBadge from "@/shared/components/ui/activity-card/duration-badge";
+import PriorityBadge from "@/shared/components/ui/activity-card/priority-badge";
+import TimeBadge from "@/shared/components/ui/activity-card/time-badge";
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
 import { PRIORITY } from "@/shared/constants/constant";
 import { Activity } from "@/shared/types/activity";
@@ -5,7 +10,6 @@ import { parseRepeat } from "@/shared/utils/activity";
 import { getDurationLabel, isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
 import clsx from "clsx";
-import { format } from "date-fns";
 import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -39,25 +43,9 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                 <ColumnView className="gap-2">
                     <RowView className="justify-between">
                         <RowView>
-                            <RowView className="px-3 h-8 rounded-full justify-center items-center bg-black">
-                                <Feather
-                                    name="briefcase"
-                                    size={12}
-                                    color="white"
-                                />
-                                <Text className="text-sm text-white">Work</Text>
-                            </RowView>
+                            <CategoryBadge />
                             {activity.priority !== 0 && (
-                                <RowView className="px-3 h-8 rounded-full justify-center items-center bg-black">
-                                    <Feather
-                                        name={priority.icon}
-                                        size={12}
-                                        color="white"
-                                    />
-                                    <Text className="text-sm text-white">
-                                        {priority.label}
-                                    </Text>
-                                </RowView>
+                                <PriorityBadge priority={activity.priority} />
                             )}
                         </RowView>
                         <RowView>
@@ -86,30 +74,16 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                     )}
                     <RowView className="justify-between items-center">
                         <RowView className="">
-                            {!isUpcoming && (
-                                <RowView className="h-8 px-3  rounded-full items-center bg-black">
-                                    <Feather
-                                        name="calendar"
-                                        size={12}
-                                        color="white"
-                                    />
-                                    <Text className="text-sm text-white">
-                                        {format(activity.date, "dd MMM")}
-                                    </Text>
-                                </RowView>
-                            )}
-                            <RowView className="h-8 px-3  rounded-full items-center bg-black">
-                                <Feather name="clock" size={12} color="white" />
-                                <Text className="text-sm text-white">
-                                    {format(activity.startTime, "p")} -{" "}
-                                    {format(activity.endTime, "p")}
-                                </Text>
-                            </RowView>
-                            <RowView className="h-8 px-3  rounded-full items-center bg-black">
-                                <Text className="text-sm text-white">
-                                    {duration}
-                                </Text>
-                            </RowView>
+                            {!isUpcoming && <DateBadge date={activity.date} />}
+                            <TimeBadge
+                                startTime={activity.startTime}
+                                endTime={activity.endTime}
+                            />
+
+                            <DurationBadge
+                                startTime={activity.startTime}
+                                endTime={activity.endTime}
+                            />
                         </RowView>
                     </RowView>
                     {repeat && (

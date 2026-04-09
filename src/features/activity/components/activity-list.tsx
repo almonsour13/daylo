@@ -1,5 +1,4 @@
-import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
-import Feather from "@expo/vector-icons/Feather";
+import { ColumnView } from "@/shared/components/ui/custom-view";
 import { Text, View } from "react-native";
 import { useActivities } from "../hooks/use-activities";
 import ActivityCard from "./activity-card";
@@ -10,7 +9,7 @@ export default function ActivityList() {
 
     return (
         <ColumnView className="px-4 gap-2">
-            <RowView className="justify-between items-center">
+            {/* <RowView className="justify-between items-center">
                 <Text className="text-base font-semibold">
                     {activities.length}{" "}
                     {activities.length > 1 ? "Activities" : "Activity"}
@@ -19,13 +18,13 @@ export default function ActivityList() {
                     <Text className="text-base font-semibold">All</Text>
                     <Feather name="sliders" size={14} color="" />
                 </RowView>
-            </RowView>
+            </RowView> */}
             {isActivitiesLoading ? (
                 <View>
                     <Text>Loading...</Text>
                 </View>
             ) : activities.length > 0 ? (
-                Array.from({ length: 10 }).map((_, i) => (
+                Array.from({ length: 1 }).map((_, i) => (
                     <ActivityCard key={i} activity={activities[0]} />
                 ))
             ) : (
