@@ -1,7 +1,7 @@
 import { activitiesData } from "@/shared/constants/data";
 import { Activity } from "@/shared/types/activity";
 import { useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useActivityDetails = () => {
     const { activityId } = useLocalSearchParams();
@@ -28,9 +28,10 @@ export const useActivityDetails = () => {
         }
     };
 
-    // useEffect(() => {
-    //     await fetchActivityDetails();
-    // }, []);
+    useEffect(() => {
+        if (!activityId) return;
+        fetchActivityDetails();
+    }, [activityId]);
 
     return {
         isActivityDetailsLoading,

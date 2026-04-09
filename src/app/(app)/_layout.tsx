@@ -12,6 +12,13 @@ export default function AppLayout() {
             >
                 <Stack.Screen name="index" />
                 <Stack.Screen name="activity" />
+                <Stack.Screen
+                    name="[activityId]"
+                    options={{
+                        presentation: "card",
+                        animation: "slide_from_right",
+                    }}
+                />
             </Stack>
             <BottomNavBar />
         </>

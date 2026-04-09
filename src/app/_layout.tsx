@@ -1,7 +1,8 @@
 import "@/global.css";
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "nativewind";
+import { useEffect } from "react";
 import "react-native-reanimated";
 
 export const unstable_settings = {
@@ -9,12 +10,18 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+    const { setColorScheme } = useColorScheme();
+
+    useEffect(() => {
+        setColorScheme("light");
+    }, []);
+
     return (
-        <ThemeProvider value={DefaultTheme}>
+        <>
             <Stack>
                 <Stack.Screen name="(app)" options={{ headerShown: false }} />
             </Stack>
             <StatusBar style="auto" />
-        </ThemeProvider>
+        </>
     );
 }

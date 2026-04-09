@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { View, ViewProps } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -6,16 +7,21 @@ interface ScreenWrapperProps extends ViewProps {
     className?: string;
 }
 
-export default function ScreenWrapper({ children }: ScreenWrapperProps) {
+export default function ScreenWrapper({
+    children,
+    className,
+    ...props
+}: ScreenWrapperProps) {
     const inset = useSafeAreaInsets();
     return (
         <View
             style={{
                 flex: 1,
                 paddingTop: inset.top,
-                // paddingBottom: inset.bottom,
+                paddingBottom: inset.bottom + 70,
             }}
-            className="flex-1"
+            className={clsx("flex-1", className)}
+            {...props}
         >
             {children}
         </View>

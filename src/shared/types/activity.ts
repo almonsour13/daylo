@@ -22,3 +22,14 @@ export type Activity = {
 export type ActivityWithRepeat = Omit<Activity, "repeat"> & {
     repeat: DayAbbrev[];
 };
+
+export type ActivityLogRecord = {
+    id: number;
+    activityId: number;
+    date: string; // 'YYYY-MM-DD'
+    status: number; // 0 | 1
+    startTime: string; // 'HH:mm'
+    endTime: string; // 'HH:mm'
+    createdAt: Date;
+    updatedAt: Date;
+};

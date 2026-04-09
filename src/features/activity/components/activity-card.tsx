@@ -4,6 +4,7 @@ import { Activity } from "@/shared/types/activity";
 import { parseRepeat } from "@/shared/utils/activity";
 import { getDurationLabel, isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
+import clsx from "clsx";
 import { format } from "date-fns";
 import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
@@ -15,13 +16,23 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
     const repeat = parseRepeat(activity.repeat);
     const isNotificationEnabled = activity.notificationEnabled === 1;
     const isDisbled = activity.status === 2;
+    const priority = PRIORITY[activity.priority];
     return (
         <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => router.push(`/${activity.id}`)}
         >
-            <View className="relative p-4 bg-white rounded-2xl overflow-hidden">
-                <View className="absolute z-0 top-0 bottom-0 left-0 right-0 bg-green-300" />
+            <View
+                className={clsx(
+                    "relative p-4 rounded-2xl overflow-hidden bg-white",
+                )}
+            >
+                <View
+                    className={clsx(
+                        "absolute z-0 top-0 bottom-0 left-0 right-0",
+                        priority.color,
+                    )}
+                />
                 {isDisbled && (
                     <View className="absolute z-2 top-0 bottom-0 left-0 right-0 bg-white opacity-75" />
                 )}
@@ -36,16 +47,18 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                                 />
                                 <Text className="text-sm text-white">Work</Text>
                             </RowView>
-                            <RowView className="px-3 h-8 rounded-full justify-center items-center bg-black">
-                                <Feather
-                                    name={PRIORITY[activity.priority].icon}
-                                    size={12}
-                                    color="white"
-                                />
-                                <Text className="text-sm text-white">
-                                    {PRIORITY[activity.priority].label}
-                                </Text>
-                            </RowView>
+                            {activity.priority !== 0 && (
+                                <RowView className="px-3 h-8 rounded-full justify-center items-center bg-black">
+                                    <Feather
+                                        name={priority.icon}
+                                        size={12}
+                                        color="white"
+                                    />
+                                    <Text className="text-sm text-white">
+                                        {priority.label}
+                                    </Text>
+                                </RowView>
+                            )}
                         </RowView>
                         <RowView>
                             <View className="h-8 aspect-square rounded-full justify-center items-center bg-black">
@@ -67,7 +80,9 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                         </Text>
                     </RowView>
                     {activity.description && (
-                        <Text className="test-sm">{activity.description}</Text>
+                        <Text className="text-base">
+                            {activity.description}
+                        </Text>
                     )}
                     <RowView className="justify-between items-center">
                         <RowView className="">
