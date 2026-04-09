@@ -8,7 +8,7 @@ export default function ActivityScreen() {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
         >
-            <ColumnView className="pb-4 flex-1 gap-4">
+            <ColumnView className="pb-40 flex-1 gap-4">
                 <ColumnView className="px-4 pt-12 gap-1">
                     <Text className="text-4xl">Your </Text>
                     <Text className="text-7xl">Activities</Text>

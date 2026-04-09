@@ -18,7 +18,6 @@ export default function ScreenWrapper({
             style={{
                 flex: 1,
                 paddingTop: inset.top,
-                paddingBottom: inset.bottom + 70,
             }}
             className={clsx("flex-1", className)}
             {...props}
