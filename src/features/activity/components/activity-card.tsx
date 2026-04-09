@@ -5,9 +5,11 @@ import { parseRepeat } from "@/shared/utils/activity";
 import { getDurationLabel, isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
 import { format } from "date-fns";
+import { useRouter } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
 
 export default function ActivityCard({ activity }: { activity: Activity }) {
+    const router = useRouter();
     const duration = getDurationLabel(activity.startTime, activity.endTime);
     const isUpcoming = isUpcomingDate(activity.date);
     const repeat = parseRepeat(activity.repeat);
@@ -16,7 +18,7 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
     return (
         <TouchableOpacity
             activeOpacity={0.8}
-            // onPress={() => router.push(`/${activity.id}`)}
+            onPress={() => router.push(`/${activity.id}`)}
         >
             <View className="relative p-4 bg-white rounded-2xl overflow-hidden">
                 <View className="absolute z-0 top-0 bottom-0 left-0 right-0 bg-green-300" />
