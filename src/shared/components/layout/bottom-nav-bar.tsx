@@ -1,7 +1,7 @@
 import { HIDDEN_ON_ROUTES, NAV_ITEMS } from "@/shared/constants/constant";
 import Feather from "@expo/vector-icons/Feather";
 import { usePathname, useRouter } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function BottomNavBar() {
@@ -37,7 +37,7 @@ export default function BottomNavBar() {
             className="bg-white rounded-t-2xl shadow-2xl"
         >
             <View className="px-4 justify-center items-center">
-                <View className="py-2 flex-row justify-between items-center gap-16 rounded-full">
+                <View className="py-4 flex-row justify-between items-center gap-16 rounded-full">
                     {NAV_ITEMS.map((item) => {
                         const href = item.href;
                         const isItemActive = isActive(href);
@@ -66,12 +66,12 @@ export default function BottomNavBar() {
                                 onPress={() => router.push(href)}
                             >
                                 <View
-                                    className={` items-center justify-center gap-1 ${isItemActive ? "" : "opacity-50"}`}
+                                    className={`h-12 bg-red-100 items-center justify-center gap-1 ${isItemActive ? "" : "opacity-50"}`}
                                 >
                                     <Feather name={item.icon} size={24} />
-                                    <Text className="text-xs">
+                                    {/* <Text className="text-xs">
                                         {item.label}
-                                    </Text>
+                                    </Text> */}
                                 </View>
                             </Pressable>
                         );

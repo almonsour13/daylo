@@ -1,17 +1,25 @@
-import { ActivitiesData } from "@/shared/constants/data";
+import { ColumnView } from "@/shared/components/ui/custom-view";
 import { Text, View } from "react-native";
+import { useActivities } from "../hooks/use-activities";
 import ActivityCard from "./activity-card";
 
 export default function ActivityList() {
-    const activity = ActivitiesData();
+    const { activities, isActivitiesLoading, activitiesError } =
+        useActivities();
+
     return (
-        <View className="p-4">
-            <Text>{activity.name}</Text>
-            <View className="flex-col gap-2">
-                {Array.from({ length: 10 }).map((_, i) => (
-                    <ActivityCard key={i} activity={activity} />
-                ))}
-            </View>
-        </View>
+        <ColumnView className="px-4">
+            {isActivitiesLoading ? (
+                <View>
+                    <Text>Loading...</Text>
+                </View>
+            ) : activities.length > 0 ? (
+                Array.from({ length: 10 }).map((_, i) => (
+                    <ActivityCard key={i} activity={activities[0]} />
+                ))
+            ) : (
+                <Text>No activities found</Text>
+            )}
+        </ColumnView>
     );
 }
