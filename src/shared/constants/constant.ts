@@ -1,3 +1,4 @@
+import Feather from "@expo/vector-icons/Feather";
 import { DayAbbrev } from "../types/activity";
 
 export const WEEK_DAYS: DayAbbrev[] = [
@@ -40,23 +41,28 @@ export const PRIORITY: Record<
     {
         label: string;
         color: string;
+        icon: keyof typeof Feather.glyphMap;
     }
 > = {
     0: {
         label: "None",
         color: "#e5e7eb",
+        icon: "circle",
     },
     1: {
         label: "Low",
         color: "#ef4444",
+        icon: "arrow-down-circle",
     },
     2: {
         label: "Medium",
         color: "#fce642",
+        icon: "minus-circle", // better than plain "circle" for distinction
     },
     3: {
         label: "High",
         color: "#22c55e",
+        icon: "arrow-up-circle",
     },
 };
 
