@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { Text, View } from "react-native";
 
 export default function TodayActivities() {
-    const activity = activitiesData();
+    const todayActivities = activitiesData();
 
     return (
         <ColumnView className="px-4">
@@ -22,7 +22,7 @@ export default function TodayActivities() {
                 </Text>
             </RowView>
             <ColumnView>
-                {Array.from({ length: 5 }).map((_, i) => {
+                {todayActivities.map((activity, i) => {
                     const isNotificationEnabled =
                         activity.notificationEnabled === 1;
                     const priority = PRIORITY[activity.priority];

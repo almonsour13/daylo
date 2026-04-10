@@ -24,8 +24,8 @@ export default function ActivityList() {
                     <Text>Loading...</Text>
                 </View>
             ) : activities.length > 0 ? (
-                Array.from({ length: 1 }).map((_, i) => (
-                    <ActivityCard key={i} activity={activities[0]} />
+                activities.map((activity, i) => (
+                    <ActivityCard key={i} activity={activity} />
                 ))
             ) : (
                 <Text>No activities found</Text>

@@ -23,7 +23,7 @@ export const useActivities = () => {
 
         try {
             const data = activitiesData();
-            setActivities([data]);
+            setActivities(data);
             hasFetched.current = true;
         } catch (e) {
             setActivitiesError("Failed to load today's activities");

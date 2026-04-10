@@ -16,7 +16,7 @@ export const useActivityDetails = () => {
         setIsActivityDetailsLoading(true);
         try {
             const data = activitiesData();
-            const activity = [data].find(
+            const activity = data.find(
                 (activity) => activity.id === Number(activityId),
             );
             if (!activity) throw new Error("Activity not found");

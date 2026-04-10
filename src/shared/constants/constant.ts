@@ -51,17 +51,17 @@ export const PRIORITY: Record<
     },
     1: {
         label: "Low",
-        color: "bg-green-300",
+        color: "bg-green-400",
         icon: "arrow-down-circle",
     },
     2: {
         label: "Medium",
-        color: "bg-yellow-300",
+        color: "bg-yellow-400",
         icon: "minus-circle", // better than plain "circle" for distinction
     },
     3: {
         label: "High",
-        color: "bg-red-300",
+        color: "bg-red-400",
         icon: "arrow-up-circle",
     },
 };

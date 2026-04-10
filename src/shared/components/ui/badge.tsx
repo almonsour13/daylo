@@ -13,6 +13,7 @@ export default function Badge({ children, className, ...props }: BadgeProps) {
                 "h-8 px-3 rounded-full items-center bg-black",
                 className,
             )}
+            // style={{backgroundColor:"rgb(0,0,0,0.5)"}}
             {...props}
         >
             {children}
