@@ -9,7 +9,7 @@ export default function ActivityScreen() {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
         >
-            <ColumnView className="pb-40 flex-1 gap-4">
+            <ColumnView className="pb-40 gap-4">
                 <Header />
                 <ActivityList />
             </ColumnView>

@@ -1,4 +1,10 @@
-import { useCallback, useRef, useState } from "react";
+import {
+    forwardRef,
+    useCallback,
+    useImperativeHandle,
+    useRef,
+    useState,
+} from "react";
 import {
     Animated,
     Dimensions,
@@ -12,14 +18,18 @@ import {
 
 const DISMISS_THRESHOLD = 120;
 const ANIMATION_DURATION = 300;
+export interface DrawerHandle {
+    close: () => void;
+    open: () => void;
+}
 
-export default function Drawer({
-    triggerButton,
-    children,
-}: {
-    triggerButton: React.ReactNode;
-    children: React.ReactNode;
-}) {
+const Drawer = forwardRef<
+    DrawerHandle,
+    {
+        triggerButton: React.ReactNode;
+        children: React.ReactNode;
+    }
+>(({ triggerButton, children }, ref) => {
     const windowHeight = Dimensions.get("window").height;
 
     const contentHeightRef = useRef(windowHeight);
@@ -54,6 +64,7 @@ export default function Drawer({
         });
     }, [translateY, backdropOpacity]);
 
+    useImperativeHandle(ref, () => ({ open, close }), [open, close]);
     const snapBack = useCallback(() => {
         Animated.spring(dragY, {
             toValue: 0,
@@ -111,7 +122,9 @@ export default function Drawer({
 
     return (
         <>
-            <Pressable onPress={open}>{triggerButton}</Pressable>
+            {triggerButton && (
+                <Pressable onPress={open}>{triggerButton}</Pressable>
+            )}
             <Modal
                 visible={modalVisible}
                 transparent
@@ -150,8 +163,9 @@ export default function Drawer({
             </Modal>
         </>
     );
-}
+});
 
+export default Drawer;
 const styles = StyleSheet.create({
     backdrop: {
         backgroundColor: "rgba(0,0,0,0.5)",
@@ -169,10 +183,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.12,
         shadowRadius: 12,
         elevation: 16,
+        overflow: "hidden",
     },
     handleArea: {
         alignItems: "center",
         paddingVertical: 16,
+        zIndex: 9999,
     },
     handle: {
         width: 40,

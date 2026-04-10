@@ -45,7 +45,7 @@ export default function BottomNavBar() {
                 paddingBottom: insets.bottom,
                 transform: [{ translateY }],
             }}
-            className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl shadow-2xl"
+            className="absolute bottom-0 left-0 right-0 bg-white rounded-t-4xl shadow-4xl"
         >
             <View className="px-4 justify-center items-center">
                 <View className="py-4 flex-row justify-between items-center gap-16 rounded-full">

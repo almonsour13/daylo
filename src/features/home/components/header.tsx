@@ -13,7 +13,7 @@ export default function Header() {
                 <View className="flex-1 flex-col gap-1">
                     <Text className="text-2xl">Good {greeting}</Text>
 
-                    <Text className="text-5xl leading-3">Monsour</Text>
+                    <Text className="text-6xl leading-3">Monsour</Text>
                 </View>
                 <View className="h-12 aspect-square rounded-full bg-white justify-center items-center">
                     <Text className="text-xl">M</Text>

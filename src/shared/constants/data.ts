@@ -1,3 +1,5 @@
+import { ActivityRecord } from "../types/activity";
+
 export const activitiesData = () => {
     const today = new Date();
 
@@ -56,9 +58,82 @@ export const activitiesData = () => {
             startTime: timeISO(6, 0),
             endTime: timeISO(7, 0),
             repeat: JSON.stringify(["Mon", "Wed", "Fri"]),
-            status: 1,
+            status: 2,
             priority: 3,
             notificationEnabled: 0,
+            createdAt: now,
+            updatedAt: now,
+        },
+    ];
+};
+
+export const activitysData = (): ActivityRecord[] => {
+    const today = new Date();
+
+    const toDateString = (date: Date) => date.toISOString().split("T")[0];
+
+    const dayOffset = (days: number) => {
+        const d = new Date(today);
+        d.setDate(d.getDate() + days);
+        return toDateString(d);
+    };
+
+    const timeISO = (hours: number, minutes = 0) => {
+        const d = new Date(today);
+        d.setHours(hours, minutes, 0, 0);
+        return d.toISOString();
+    };
+
+    const now = new Date();
+
+    return [
+        {
+            id: 1,
+            activityId: 1,
+            date: dayOffset(0),
+            status: 1, // completed
+            startTime: timeISO(6, 0),
+            endTime: timeISO(7, 0),
+            createdAt: now,
+            updatedAt: now,
+        },
+        {
+            id: 2,
+            activityId: 1,
+            date: dayOffset(-1),
+            status: 2, // missed / not completed
+            startTime: timeISO(6, 0),
+            endTime: timeISO(7, 0),
+            createdAt: now,
+            updatedAt: now,
+        },
+        {
+            id: 3,
+            activityId: 2,
+            date: dayOffset(-2),
+            status: 3,
+            startTime: timeISO(8, 0),
+            endTime: timeISO(9, 0),
+            createdAt: now,
+            updatedAt: now,
+        },
+        {
+            id: 4,
+            activityId: 3,
+            date: dayOffset(-3),
+            status: 2,
+            startTime: timeISO(7, 30),
+            endTime: timeISO(8, 30),
+            createdAt: now,
+            updatedAt: now,
+        },
+        {
+            id: 5,
+            activityId: 2,
+            date: dayOffset(1),
+            status: 4,
+            startTime: timeISO(6, 30),
+            endTime: timeISO(7, 30),
             createdAt: now,
             updatedAt: now,
         },

@@ -20,19 +20,23 @@ export const STATUS: Record<
 > = {
     0: {
         label: "None",
-        color: "#e5e7eb",
+        color: "bg-zinc-300",
     },
     1: {
         label: "Pending",
-        color: "#fce642",
+        color: "bg-yellow-400",
     },
     2: {
         label: "Completed",
-        color: "#22c55e",
+        color: "bg-green-400",
     },
     3: {
+        label: "Cancelled",
+        color: "bg-gray-400",
+    },
+    4: {
         label: "Missed",
-        color: "#ef4444",
+        color: "bg-red-400",
     },
 };
 
@@ -51,17 +55,17 @@ export const PRIORITY: Record<
     },
     1: {
         label: "Low",
-        color: "bg-green-400",
+        color: "bg-green-400 opacity-50",
         icon: "arrow-down-circle",
     },
     2: {
         label: "Medium",
-        color: "bg-yellow-400",
+        color: "bg-yellow-400 opacity-50",
         icon: "minus-circle", // better than plain "circle" for distinction
     },
     3: {
         label: "High",
-        color: "bg-red-400",
+        color: "bg-red-400 opacity-50",
         icon: "arrow-up-circle",
     },
 };

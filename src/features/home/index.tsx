@@ -6,7 +6,10 @@ import WeekDaysProgress from "./components/week-day-progress";
 
 export default function HomeScreen() {
     return (
-        <ScrollView>
+        <ScrollView
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+        >
             <ColumnView className="pb-40 gap-8">
                 <Header />
                 <WeekDaysProgress />
