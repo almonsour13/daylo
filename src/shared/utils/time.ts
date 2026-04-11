@@ -1,6 +1,14 @@
-export function getDurationLabel(startTime: string, endTime: string): string {
-    const start = new Date(startTime).getTime();
-    const end = new Date(endTime).getTime();
+import { parse } from "date-fns";
+export const toDateTime = (date: string, time: string): Date => {
+    return parse(`${date} ${time}`, "yyyy-MM-dd HH:mm", new Date());
+};
+export function getDurationLabel(
+    date: string,
+    startTime: string,
+    endTime: string,
+): string {
+    const start = toDateTime(date, startTime).getTime();
+    const end = toDateTime(date, endTime).getTime();
     const durationMs = end - start;
 
     const hours = Math.floor(durationMs / (1000 * 60 * 60));

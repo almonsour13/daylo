@@ -6,9 +6,10 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { Text } from "react-native";
 import { useAddActivityContext } from "../context/add-activity-context";
+import { toDateTime } from "@/shared/utils/time";
 
 export default function DateTimeInput() {
-    const { activity } = useAddActivityContext();
+    const { newActivity, setNewActivity } = useAddActivityContext();
     return (
         <ColumnView className="gap-4">
             <InputField>
@@ -17,11 +18,11 @@ export default function DateTimeInput() {
                     <Text
                         className={clsx(
                             "text-base",
-                            activity.date ? "" : "text-zinc-500",
+                            newActivity.date ? "" : "text-zinc-500",
                         )}
                     >
-                        {activity.date
-                            ? format(activity.date, "dd MMMM yy")
+                        {newActivity.date
+                            ? format(newActivity.date, "dd MMMM yy")
                             : "Select Date"}
                     </Text>
                     <Feather name="calendar" size={16} />
@@ -34,11 +35,17 @@ export default function DateTimeInput() {
                         <Text
                             className={clsx(
                                 "text-base",
-                                activity.startTime ? "" : "text-zinc-500",
+                                newActivity.startTime ? "" : "text-zinc-500",
                             )}
                         >
-                            {activity.startTime
-                                ? format(activity.startTime, "dd MMMM yy")
+                            {newActivity.startTime
+                                ? format(
+                                      toDateTime(
+                                          newActivity.date,
+                                          newActivity.startTime,
+                                      ),
+                                      "p",
+                                  )
                                 : "Select Time"}
                         </Text>
                         <Feather name="clock" size={16} />
@@ -50,11 +57,17 @@ export default function DateTimeInput() {
                         <Text
                             className={clsx(
                                 "text-base",
-                                activity.endTime ? "" : "text-zinc-500",
+                                newActivity.endTime ? "" : "text-zinc-500",
                             )}
                         >
-                            {activity.endTime
-                                ? format(activity.endTime, "dd MMMM yy")
+                            {newActivity.endTime
+                                ? format(
+                                      toDateTime(
+                                          newActivity.date,
+                                          newActivity.endTime,
+                                      ),
+                                      "p",
+                                  )
                                 : "Select Time"}
                         </Text>
                         <Feather name="clock" size={16} />

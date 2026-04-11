@@ -38,45 +38,28 @@ export default function BottomNavBar() {
             speed: 20,
         }).start();
     }, [pathname]);
-
+    const item = NAV_ITEMS.find((item) => item.label === "__fab__");
     return (
         <Animated.View
             style={{
                 paddingBottom: insets.bottom,
                 transform: [{ translateY }],
             }}
-            className="absolute bottom-0 left-0 right-0 bg-white rounded-t-4xl shadow-4xl"
+            className="absolute bottom-0 left-0 right-0 rounded-t-4xl shadow-4xl"
         >
-            <View className="px-4 justify-center items-center">
-                <View className="py-4 flex-row justify-between items-center gap-16 rounded-full">
+            <View className="p-4 flex-row gap-2 justify-center items-center">
+                <View className="h-20 p-4 px-8 flex-row gap-6 items-center rounded-full bg-white">
                     {NAV_ITEMS.map((item) => {
                         const href = item.href;
                         const isItemActive = isActive(href);
-
-                        if (item.label === "__fab__") {
-                            return (
-                                <Pressable
-                                    key={item.label}
-                                    onPress={() => router.push(href)}
-                                >
-                                    <View className="p-4 aspect-square bg-black rounded-full">
-                                        <Feather
-                                            name={item.icon}
-                                            size={20}
-                                            color="white"
-                                        />
-                                    </View>
-                                </Pressable>
-                            );
-                        }
-
+                        if (item.label === "__fab__") return;
                         return (
                             <Pressable
                                 key={item.label}
                                 onPress={() => router.push(href)}
                             >
                                 <View
-                                    className={`h-12 items-center justify-center gap-1 ${isItemActive ? "" : "opacity-50"}`}
+                                    className={`h-12 aspect-square items-center justify-center gap-1 ${isItemActive ? "" : "opacity-50"}`}
                                 >
                                     <Feather name={item.icon} size={24} />
                                 </View>
@@ -84,6 +67,11 @@ export default function BottomNavBar() {
                         );
                     })}
                 </View>
+                <Pressable onPress={() => router.push("/addActivity")}>
+                    <View className="h-20 aspect-square justify-center items-center bg-black rounded-full">
+                        <Feather name="plus" size={24} color="white" />
+                    </View>
+                </Pressable>
             </View>
         </Animated.View>
     );

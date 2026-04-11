@@ -7,7 +7,7 @@ import { Text, TouchableOpacity } from "react-native";
 import { useAddActivityContext } from "../context/add-activity-context";
 
 export default function PriorityInput() {
-    const { activity, setActivity } = useAddActivityContext();
+    const { newActivity, setNewActivity } = useAddActivityContext();
 
     return (
         <InputField>
@@ -19,18 +19,18 @@ export default function PriorityInput() {
                         className={clsx(
                             "relative h-12 rounded-md flex-1 justify-center items-center",
                             PRIORITY[i].color,
-                            activity.priority == i
+                            newActivity.priority == i
                                 ? "opacity-100"
                                 : "opacity-50",
                         )}
                         onPress={() =>
-                            setActivity({ ...activity, priority: i })
+                            setNewActivity({ ...newActivity, priority: i })
                         }
                     >
                         <Text
                             className={clsx(
                                 "text-sm font-semibold",
-                                // activity.priority == i
+                                // newActivity.priority == i
                                 //     ? "text-white"
                                 //     : "text-black",
                             )}

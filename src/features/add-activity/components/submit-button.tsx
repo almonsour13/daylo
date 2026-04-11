@@ -1,14 +1,14 @@
 import clsx from "clsx";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useAddActivityContext } from "../context/add-activity-context";
 import { isActivityValid } from "../lib/activity";
 
 export default function SubmitButton() {
     const insets = useSafeAreaInsets();
-    const { activity } = useAddActivityContext();
+    const { newActivity, isloading, addActivity } = useAddActivityContext();
 
-    const isInputValid = isActivityValid(activity);
+    const isInputValid = isActivityValid(newActivity);
 
     return (
         <View
@@ -23,8 +23,15 @@ export default function SubmitButton() {
                     "flex-1 h-16 bg-black rounded-full justify-center items-center",
                     isInputValid ? "" : "opacity-75",
                 )}
+                onPress={addActivity}
             >
-                <Text className="text-white text-lg font-semibold">Save</Text>
+                {isloading ? (
+                    <ActivityIndicator />
+                ) : (
+                    <Text className="text-white text-lg font-semibold">
+                        Save
+                    </Text>
+                )}
             </TouchableOpacity>
         </View>
     );

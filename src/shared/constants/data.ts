@@ -1,5 +1,4 @@
 import { ActivityRecord } from "../types/activity";
-
 export const activitiesData = () => {
     const today = new Date();
 
@@ -11,11 +10,9 @@ export const activitiesData = () => {
         return toDateString(d);
     };
 
-    const timeISO = (hours: number, minutes = 0) => {
-        const d = new Date(today);
-        d.setHours(hours, minutes, 0, 0);
-        return d.toISOString();
-    };
+    const toTime = (hours: number, minutes = 0) =>
+        `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+
     const now = new Date();
 
     return [
@@ -25,8 +22,8 @@ export const activitiesData = () => {
             description:
                 "Start the day with a structured workout routine that includes light stretching, mobility exercises, and a mix of cardio and strength training. Focus on improving flexibility, boosting energy levels, and maintaining overall physical health. This session helps build consistency, reduce stress, and prepare both body and mind for the day ahead.",
             date: dayOffset(0),
-            startTime: timeISO(6, 0),
-            endTime: timeISO(7, 0),
+            startTime: toTime(6, 0),
+            endTime: toTime(7, 0),
             repeat: JSON.stringify(["Mon", "Wed", "Fri"]),
             status: 1,
             priority: 1,
@@ -40,8 +37,8 @@ export const activitiesData = () => {
             description:
                 "Start the day with a structured workout routine that includes light stretching, mobility exercises, and a mix of cardio and strength training. Focus on improving flexibility, boosting energy levels, and maintaining overall physical health. This session helps build consistency, reduce stress, and prepare both body and mind for the day ahead.",
             date: dayOffset(0),
-            startTime: timeISO(6, 0),
-            endTime: timeISO(7, 0),
+            startTime: toTime(6, 0),
+            endTime: toTime(7, 0),
             repeat: JSON.stringify(["Mon", "Wed", "Fri"]),
             status: 1,
             priority: 2,
@@ -55,8 +52,8 @@ export const activitiesData = () => {
             description:
                 "Start the day with a structured workout routine that includes light stretching, mobility exercises, and a mix of cardio and strength training. Focus on improving flexibility, boosting energy levels, and maintaining overall physical health. This session helps build consistency, reduce stress, and prepare both body and mind for the day ahead.",
             date: dayOffset(0),
-            startTime: timeISO(6, 0),
-            endTime: timeISO(7, 0),
+            startTime: toTime(6, 0),
+            endTime: toTime(7, 0),
             repeat: JSON.stringify(["Mon", "Wed", "Fri"]),
             status: 2,
             priority: 3,
@@ -80,6 +77,7 @@ export const activitysData = (): ActivityRecord[] => {
 
     const timeISO = (hours: number, minutes = 0) => {
         const d = new Date(today);
+        console.log(hours, minutes);
         d.setHours(hours, minutes, 0, 0);
         return d.toISOString();
     };

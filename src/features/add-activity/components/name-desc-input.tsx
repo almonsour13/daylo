@@ -3,19 +3,21 @@ import Input from "@/shared/components/ui/input";
 import InputField from "@/shared/components/ui/input-field";
 import Label from "@/shared/components/ui/label";
 import { useAddActivityContext } from "../context/add-activity-context";
+import { Text } from "react-native";
 
 export default function NameDescriptionInput() {
-    const { activity, setActivity } = useAddActivityContext();
+    const { newActivity, setNewActivity, error } = useAddActivityContext();
 
     return (
         <ColumnView className="gap-4">
+            <Text>{error}</Text>
             <InputField>
                 <Label>Name:</Label>
                 <Input
                     placeholder="eg: Morning Walk"
-                    value={activity.name}
+                    value={newActivity.name}
                     onChangeText={(text) =>
-                        setActivity({ ...activity, name: text })
+                        setNewActivity({ ...newActivity, name: text })
                     }
                 />
             </InputField>
@@ -27,9 +29,9 @@ export default function NameDescriptionInput() {
                     multiline
                     numberOfLines={4}
                     textAlignVertical="top"
-                    value={activity.description}
+                    value={newActivity.description}
                     onChangeText={(text) =>
-                        setActivity({ ...activity, description: text })
+                        setNewActivity({ ...newActivity, description: text })
                     }
                 />
             </InputField>

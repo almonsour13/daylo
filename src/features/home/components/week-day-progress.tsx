@@ -1,6 +1,7 @@
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
 import { WEEK_DAYS } from "@/shared/constants/constant";
 import clsx from "clsx";
+import { format } from "date-fns";
 import { Text, View } from "react-native";
 
 export default function WeekDaysProgress() {
@@ -15,6 +16,11 @@ export default function WeekDaysProgress() {
 
     return (
         <ColumnView className="px-4">
+            <RowView className="justify-between items-center">
+                <Text className="text-2xl tracking-wide">
+                    {format(todayMidnight, "dd MMMM, yyyy")}
+                </Text>
+            </RowView>
             <RowView className="justify-between items-center">
                 {WEEK_DAYS.map((day, index) => {
                     const date = new Date(startOfWeek);

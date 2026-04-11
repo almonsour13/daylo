@@ -4,12 +4,12 @@ import Switch from "@/shared/components/ui/switch";
 import { useAddActivityContext } from "../context/add-activity-context";
 
 export default function NotificationInput() {
-    const { activity, setActivity } = useAddActivityContext();
-    const isNotificationEnabled = activity.notificationEnabled == 1;
+    const { newActivity, setNewActivity } = useAddActivityContext();
+    const isNotificationEnabled = newActivity.notificationEnabled == 1;
 
     const onNotificationToggle = () => {
-        setActivity({
-            ...activity,
+        setNewActivity({
+            ...newActivity,
             notificationEnabled: isNotificationEnabled ? 0 : 1,
         });
     };

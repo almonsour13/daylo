@@ -7,13 +7,11 @@ export default function TodayActivities() {
     const todayActivities = activitiesData();
 
     return (
-        <ColumnView className="px-4">
-            <RowView className="">
-                <Text className="text-base font-semibold tracking-wide">
-                    Today Activities
-                </Text>
+        <ColumnView className="">
+            <RowView className="px-4">
+                <Text className="text-2xl tracking-wide">Today Activities</Text>
             </RowView>
-            <ColumnView>
+            <ColumnView className="px-2">
                 {todayActivities.map((activity, i) => (
                     <ActivityCard key={i} activity={activity} />
                 ))}

@@ -12,7 +12,9 @@ export default function DateBadge({ date, className }: Props) {
     return (
         <Badge className={clsx("", className)}>
             <Feather name="calendar" size={12} color="white" />
-            <Text className="text-sm text-white">{format(date, "dd MMM")}</Text>
+            <Text className="text-sm text-white">
+                {format(date, "dd MMM, yyy")}
+            </Text>
         </Badge>
     );
 }

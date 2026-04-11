@@ -1,12 +1,7 @@
+import { activityService } from "@/db/services/activity-service";
 import { activitiesData } from "@/shared/constants/data";
 import { Activity } from "@/shared/types/activity";
-import { useEffect, useRef, useState } from "react";
-
-export interface UseTodayActivitiesProps {
-    activities: Activity[];
-    isActivitiesLoading: boolean;
-    activitiesError: string;
-}
+import { useCallback, useEffect, useState } from "react";
 
 export const useActivities = () => {
     const [activities, setActivities] = useState<Activity[]>([]);
@@ -16,30 +11,32 @@ export const useActivities = () => {
         id: 0,
         updating: false,
     });
-    const hasFetched = useRef(false);
 
-    const fetchActivities = async () => {
-        if (hasFetched.current) return;
-
+    const fetchActivities = useCallback(async () => {
         try {
-            const data = activitiesData();
-            setActivities(data);
-            hasFetched.current = true;
+            setIsActivitiesLoading(true);
+            setActivitiesError("");
+            const data = await activityService.getActivities();
+            const s = activitiesData();
+            console.log("[useActivities] fetched:", data);
+            setActivities(s);
         } catch (e) {
-            setActivitiesError("Failed to load today's activities");
+            setActivitiesError("Failed to load activities");
         } finally {
             setIsActivitiesLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchActivities();
-    }, []);
+    }, [fetchActivities]);
 
     return {
         activities,
+        setActivities,
         isActivitiesLoading,
         activitiesError,
         isActivityUpdating,
+        refetch: fetchActivities, // ✅ expose refetch
     };
 };

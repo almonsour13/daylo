@@ -9,18 +9,18 @@ import { Text, TouchableOpacity } from "react-native";
 import { useAddActivityContext } from "../context/add-activity-context";
 
 export default function RepeatInput() {
-    const { activity, setActivity } = useAddActivityContext();
+    const { newActivity, setNewActivity } = useAddActivityContext();
     const [isRepeatEnabled, setRepeatEnabled] = useState(false);
     const onSelect = (day: string) => {
-        if (activity.repeat.includes(day)) {
-            setActivity({
-                ...activity,
-                repeat: activity.repeat.filter((d) => d !== day),
+        if (newActivity.repeat.includes(day)) {
+            setNewActivity({
+                ...newActivity,
+                repeat: newActivity.repeat.filter((d) => d !== day),
             });
         } else {
-            setActivity({
-                ...activity,
-                repeat: [...activity.repeat, day],
+            setNewActivity({
+                ...newActivity,
+                repeat: [...newActivity.repeat, day],
             });
         }
     };
@@ -33,7 +33,7 @@ export default function RepeatInput() {
                     onChange={() => {
                         setRepeatEnabled(!isRepeatEnabled);
                         if (isRepeatEnabled) {
-                            setActivity({ ...activity, repeat: [] });
+                            setNewActivity({ ...newActivity, repeat: [] });
                         }
                     }}
                 />
@@ -45,7 +45,7 @@ export default function RepeatInput() {
                         className={clsx(
                             "h-12 aspect-square rounded-full justify-center items-center",
                             !isRepeatEnabled && "opacity-50",
-                            activity.repeat.includes(day)
+                            newActivity.repeat.includes(day)
                                 ? "bg-black"
                                 : "bg-white",
                         )}
@@ -55,7 +55,7 @@ export default function RepeatInput() {
                         <Text
                             className={clsx(
                                 "text-sm font-semibold",
-                                activity.repeat.includes(day)
+                                newActivity.repeat.includes(day)
                                     ? "text-white"
                                     : "text-black",
                             )}

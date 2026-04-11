@@ -48,13 +48,7 @@ export default function ActivityDetailsScreen() {
             </View>
         );
     }
-
     const priority = PRIORITY[activityDetails.priority ?? 0];
-
-    const duration = getDurationLabel(
-        activityDetails.startTime,
-        activityDetails.endTime,
-    );
     const isUpcoming = isUpcomingDate(activityDetails.date);
     const repeat = parseRepeat(activityDetails.repeat);
     const isDisbled = activityDetails.status === 2;
@@ -62,12 +56,12 @@ export default function ActivityDetailsScreen() {
 
     return (
         <ScreenWrapper marginBottom={true}>
-            {/* <View
+            <View
                 className={clsx(
                     "absolute top-0 bottom-0 left-0 right-0",
                     priority.color,
                 )}
-            /> */}
+            />
             <ScrollView>
                 <ColumnView className="gap-4 pb-4">
                     <View className="flex-col">
@@ -142,11 +136,13 @@ export default function ActivityDetailsScreen() {
                                     <DateBadge date={activityDetails.date} />
                                 )}
                                 <TimeBadge
+                                    date={activityDetails.date}
                                     startTime={activityDetails.startTime}
                                     endTime={activityDetails.endTime}
                                 />
 
                                 <DurationBadge
+                                    date={activityDetails.date}
                                     startTime={activityDetails.startTime}
                                     endTime={activityDetails.endTime}
                                 />

@@ -80,11 +80,13 @@ export default function ActivityPreviewDrawer({ activity, onClose }: Props) {
                         <RowView className="">
                             {!isUpcoming && <DateBadge date={activity.date} />}
                             <TimeBadge
+                                date={activity.date}
                                 startTime={activity.startTime}
                                 endTime={activity.endTime}
                             />
 
                             <DurationBadge
+                                date={activity.date}
                                 startTime={activity.startTime}
                                 endTime={activity.endTime}
                             />

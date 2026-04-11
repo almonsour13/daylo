@@ -10,10 +10,10 @@ export type Activity = {
     date: string; // 'YYYY-MM-DD'
     startTime: string; // 'HH:mm'
     endTime: string; // 'HH:mm'
-    repeat: string | null; // raw JSON string from DB — parse when needed
+    repeat: string; // raw JSON string from DB — parse when needed
     status: number;
     priority: number;
-    notificationEnabled: number | null; // 0 | 1
+    notificationEnabled: number; // 0 | 1
     createdAt: Date;
     updatedAt: Date;
 };

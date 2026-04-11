@@ -4,13 +4,11 @@ import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "nativewind";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
-import { notificationService } from "@/services/notifications/notification-service";
-import {
-    registerNotificationHandlers,
-    handleInitialNotification,
-} from "@/services/notifications/notification-service-handlers";
-import * as backgroundService from "@/services/background/task-manager";
+import { useDrizzleStudio } from "expo-drizzle-studio-plugin";
+import { expoDb } from "@/db";
+import { db } from "@/db";
+import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
+import migrations from "@/db/migrations/migrations";
 
 export const unstable_settings = {
     anchor: "(tabs)",
@@ -18,20 +16,13 @@ export const unstable_settings = {
 
 export default function RootLayout() {
     const { setColorScheme } = useColorScheme();
+    useDrizzleStudio(expoDb);
+    const { success, error } = useMigrations(db, migrations);
+
+    console.log("[migrations] success:", success, "error:", error);
 
     useEffect(() => {
         setColorScheme("light");
-
-        const bootstrap = async () => {
-            await notificationService.setupAndroidChannel();
-            await notificationService.requestPermissions();
-            await handleInitialNotification();
-            await backgroundService.registerBackgroundTasks();
-        };
-        bootstrap();
-
-        const cleanup = registerNotificationHandlers();
-        return cleanup;
     }, []);
 
     return (
