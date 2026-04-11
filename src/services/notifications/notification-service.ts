@@ -17,9 +17,20 @@ export const notificationService = {
                 title: "📢 Sample Notification",
                 body: "This is a test notification!",
             },
-            trigger: null, // immediate
+            trigger: null,
         });
     },
+
+    async cancelNotification(notificationId: string): Promise<void> {
+        try {
+            await Notifications.cancelScheduledNotificationAsync(
+                notificationId,
+            );
+        } catch (e) {
+            console.error("[notificationService] cancelNotification:", e);
+        }
+    },
+
     async scheduleDailyReminders(
         activities: Activity[],
         date: Date,
@@ -50,7 +61,6 @@ export const notificationService = {
 
         return results;
     },
-    // schedule a notification for a single activity at a specific date
     async scheduleActivityReminder(
         activity: Activity,
         scheduledDate: Date,
@@ -97,7 +107,17 @@ export const notificationService = {
             lightColor: "#FF231F7C",
         });
     },
+
     async requestPermissions() {
+        // First check existing permissions
+        const { status: existingStatus } =
+            await Notifications.getPermissionsAsync();
+        if (existingStatus === "granted") {
+            console.log("✅ Notification permission granted");
+            return true;
+        }
+
+        // Only prompt if not already granted
         const { status } = await Notifications.requestPermissionsAsync();
         if (status !== "granted") {
             console.log("❌ Notification permission denied");

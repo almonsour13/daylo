@@ -18,14 +18,6 @@ export default function HomeScreen() {
             showsVerticalScrollIndicator={false}
         >
             <ColumnView className="pb-40 gap-8">
-                {/* <Button
-                    title="Send Notification"
-                    onPress={() => notificationService.sampleNotification()}
-                /> */}
-                {/* <Button
-                    title="Force Run Background Task"
-                    onPress={triggerManualTask}
-                /> */}
                 <Header />
                 <WeekDaysProgress />
                 <TodayActivities />
