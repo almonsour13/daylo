@@ -1,8 +1,9 @@
 import { ColumnView } from "@/shared/components/ui/custom-view";
-import { ScrollView } from "react-native";
+import { Button, ScrollView } from "react-native";
 import Header from "./components/header";
 import TodayActivities from "./components/today-activities";
 import WeekDaysProgress from "./components/week-day-progress";
+import { notificationService } from "@/services/notifications/notification-service";
 
 export default function HomeScreen() {
     return (
@@ -11,6 +12,10 @@ export default function HomeScreen() {
             showsVerticalScrollIndicator={false}
         >
             <ColumnView className="pb-40 gap-8">
+                <Button
+                    title="Send Notification"
+                    onPress={() => notificationService.sampleNotification()}
+                />
                 <Header />
                 <WeekDaysProgress />
                 <TodayActivities />
