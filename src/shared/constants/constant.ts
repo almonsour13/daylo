@@ -23,7 +23,7 @@ export const STATUS: Record<
         color: "bg-zinc-300",
     },
     1: {
-        label: "Pending",
+        label: "Upcoming",
         color: "bg-yellow-400",
     },
     2: {

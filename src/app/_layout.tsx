@@ -10,6 +10,7 @@ import {
     registerNotificationHandlers,
     handleInitialNotification,
 } from "@/services/notifications/notification-service-handlers";
+import * as backgroundService from "@/services/background/task-manager";
 
 export const unstable_settings = {
     anchor: "(tabs)",
@@ -25,6 +26,7 @@ export default function RootLayout() {
             await notificationService.setupAndroidChannel();
             await notificationService.requestPermissions();
             await handleInitialNotification();
+            await backgroundService.registerBackgroundTasks();
         };
         bootstrap();
 

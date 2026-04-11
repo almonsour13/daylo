@@ -9,6 +9,10 @@ TaskManager.defineTask(DAILY_RECORD_TASK, async () => {
         const today = format(new Date(), "yyyy-MM-dd");
 
         console.log(`[DailyLogTask] Running for date: ${today}`);
+        // create activity records for all activities for a day,
+        // check if the activity has already record for a day
+        // check if the activity schedule date has already passed or already starting
+        // schedule a notification
     } catch (error) {
         console.error("Failed to execute the background task:", error);
         return BackgroundTask.BackgroundTaskResult.Failed;

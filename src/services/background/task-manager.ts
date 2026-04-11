@@ -2,53 +2,25 @@ import * as BackgroundTask from "expo-background-task";
 import * as TaskManager from "expo-task-manager";
 import { DAILY_RECORD_TASK } from "./tasks/daily-record-task";
 import { MISSED_ACTIVITY_CHECK } from "./tasks/missed-activity-task";
-import { TASK_NAME } from "./tasks/minute-notification-task";
-import "./tasks/minute-notification-task";
+import { DAILY_ACTIVITY_NOTIFICATION_TASK } from "./tasks/daily-activity-notification";
 
 const ONE_HOUR_SECS = 60 * 60;
 const FIFTEEN_MINS_SECS = 15 * 60;
-
-export const backgroundService = {
-    async start() {
-        const isRegistered = await TaskManager.isTaskRegisteredAsync(TASK_NAME);
-
-        if (isRegistered) {
-            console.log("✅ Already registered");
-            return;
-        }
-
-        await BackgroundTask.registerTaskAsync(TASK_NAME, {
-            minimumInterval: 5, // for testing only — iOS ignores anything under ~10 min
-        });
-
-        console.log("🚀 Background task started");
-    },
-
-    async stop() {
-        const isRegistered = await TaskManager.isTaskRegisteredAsync(TASK_NAME);
-
-        if (!isRegistered) {
-            console.log("⚠️ Task not registered, nothing to stop");
-            return;
-        }
-
-        await BackgroundTask.unregisterTaskAsync(TASK_NAME);
-        console.log("🛑 Background task stopped");
-    },
-
-    async isRunning(): Promise<boolean> {
-        return TaskManager.isTaskRegisteredAsync(TASK_NAME);
-    },
-};
+const THIRTY_MINS_SECS = 30 * 60;
+const TWENTY_FOUR_HOURS_SECS = 24 * 60 * 60;
 
 export async function registerBackgroundTasks(): Promise<void> {
     // await registerTask(DAILY_RECORD_TASK, ONE_HOUR_SECS);
     // await registerTask(MISSED_ACTIVITY_CHECK, FIFTEEN_MINS_SECS);
+    await registerTask(
+        DAILY_ACTIVITY_NOTIFICATION_TASK,
+        TWENTY_FOUR_HOURS_SECS,
+    );
 }
 
 export async function unregisterBackgroundTasks(): Promise<void> {
-    await unregisterTask(DAILY_RECORD_TASK);
-    await unregisterTask(MISSED_ACTIVITY_CHECK);
+    // await unregisterTask(DAILY_RECORD_TASK);
+    // await unregisterTask(MISSED_ACTIVITY_CHECK);
 }
 export async function getTaskStatus(): Promise<{
     dailyLog: boolean;

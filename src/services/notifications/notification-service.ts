@@ -109,15 +109,12 @@ export const notificationService = {
     },
 
     async requestPermissions() {
-        // First check existing permissions
         const { status: existingStatus } =
             await Notifications.getPermissionsAsync();
         if (existingStatus === "granted") {
             console.log("✅ Notification permission granted");
             return true;
         }
-
-        // Only prompt if not already granted
         const { status } = await Notifications.requestPermissionsAsync();
         if (status !== "granted") {
             console.log("❌ Notification permission denied");
