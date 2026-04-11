@@ -4,10 +4,10 @@ import ScreenWrapper from "@/shared/components/layout/screen-wrapper";
 
 export default function AddActivity() {
     return (
-        <AddActivityProvider>
-            <ScreenWrapper>
+        <ScreenWrapper>
+            <AddActivityProvider>
                 <AddActivityScreen />
-            </ScreenWrapper>
-        </AddActivityProvider>
+            </AddActivityProvider>
+        </ScreenWrapper>
     );
 }

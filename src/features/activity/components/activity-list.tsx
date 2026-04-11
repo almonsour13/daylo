@@ -16,7 +16,7 @@ export default function ActivityList() {
                     {activities.length}{" "}
                     {activities.length > 1 ? "Activities" : "Activity"}
                 </Text>
-                <RowView className="items-center">
+                <RowView className="hidden items-center">
                     <Badge className="px-3 bg-white">
                         <Text className="text-sm tracking-wide">All</Text>
                         <Feather name="sliders" size={14} color="" />

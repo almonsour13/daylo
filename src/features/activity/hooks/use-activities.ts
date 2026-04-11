@@ -16,9 +16,8 @@ export const useActivities = () => {
         try {
             setIsActivitiesLoading(true);
             setActivitiesError("");
-            const data = await activityService.getActivities();
+            // const data = await activityService.getActivities();
             const s = activitiesData();
-            console.log("[useActivities] fetched:", data);
             setActivities(s);
         } catch (e) {
             setActivitiesError("Failed to load activities");
@@ -29,7 +28,7 @@ export const useActivities = () => {
 
     useEffect(() => {
         fetchActivities();
-    }, [fetchActivities]);
+    }, []);
 
     return {
         activities,

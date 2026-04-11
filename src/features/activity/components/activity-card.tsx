@@ -11,21 +11,17 @@ import { parseRepeat } from "@/shared/utils/activity";
 import { isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
 import clsx from "clsx";
-import { useRouter } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
+import ActivityDetailsDrawer from "./activity-details-drawer";
 
 export default function ActivityCard({ activity }: { activity: Activity }) {
-    const router = useRouter();
     const isUpcoming = isUpcomingDate(activity.date);
     const repeat = parseRepeat(activity.repeat);
     const isNotificationEnabled = activity.notificationEnabled === 1;
     const isDisbled = activity.status === 2;
     const priority = PRIORITY[activity.priority];
     return (
-        <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => router.push(`/${activity.id}`)}
-        >
+        <ActivityDetailsDrawer activity={activity}>
             <Card>
                 <View
                     className={clsx(
@@ -124,6 +120,6 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                     )}
                 </ColumnView>
             </Card>
-        </TouchableOpacity>
+        </ActivityDetailsDrawer>
     );
 }

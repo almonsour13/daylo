@@ -123,7 +123,12 @@ const Drawer = forwardRef<
     return (
         <>
             {triggerButton && (
-                <Pressable onPress={open}>{triggerButton}</Pressable>
+                <Pressable
+                    onPress={open}
+                    style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+                >
+                    {triggerButton}
+                </Pressable>
             )}
             <Modal
                 visible={modalVisible}

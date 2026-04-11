@@ -3,7 +3,7 @@ import ScreenWrapper from "@/shared/components/layout/screen-wrapper";
 
 export default function Activity() {
     return (
-        <ScreenWrapper>
+        <ScreenWrapper marginBottom={true}>
             <ActivityScreen />
         </ScreenWrapper>
     );

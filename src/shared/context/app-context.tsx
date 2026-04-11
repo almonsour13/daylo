@@ -20,7 +20,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
             await handleInitialNotification();
             await backgroundService.registerBackgroundTasks();
         };
-        bootstrap();
+        // bootstrap();
 
         const cleanup = registerNotificationHandlers();
         return cleanup;

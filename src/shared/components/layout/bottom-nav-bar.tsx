@@ -47,8 +47,8 @@ export default function BottomNavBar() {
             }}
             className="absolute bottom-0 left-0 right-0 rounded-t-4xl shadow-4xl"
         >
-            <View className="p-4 flex-row gap-2 justify-center items-center">
-                <View className="h-20 p-4 px-8 flex-row gap-6 items-center rounded-full bg-white">
+            <View className="p-4 pb-4 flex-row gap-2 justify-center items-center">
+                <View className="h-18 p-4 px-6 flex-row gap-6 items-center rounded-full bg-white">
                     {NAV_ITEMS.map((item) => {
                         const href = item.href;
                         const isItemActive = isActive(href);
@@ -68,7 +68,7 @@ export default function BottomNavBar() {
                     })}
                 </View>
                 <Pressable onPress={() => router.push("/addActivity")}>
-                    <View className="h-20 aspect-square justify-center items-center bg-black rounded-full">
+                    <View className="h-18 aspect-square justify-center items-center bg-black rounded-full">
                         <Feather name="plus" size={24} color="white" />
                     </View>
                 </Pressable>

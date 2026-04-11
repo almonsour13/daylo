@@ -10,10 +10,9 @@ export default function Header() {
     return (
         <ColumnView className="px-4 pt-12">
             <RowView className="justify-between">
-                <View className="flex-1 flex-col gap-2">
+                <View className="flex-col gap-2">
                     <Text className="text-2xl">Good {greeting}</Text>
-
-                    <Text className="text-6xl leading-3">Monsour</Text>
+                    <Text className="text-6xl">Monsour</Text>
                 </View>
                 <View className="hidden h-12 aspect-square rounded-full bg-white justify-center items-center">
                     <Text className="text-xl">M</Text>
