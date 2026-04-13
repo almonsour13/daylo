@@ -6,5 +6,6 @@ export interface Activity {
     startTime: string;
     endTime: string;
     repeat: string;
+    status: number;
     notificationEnabled: number;
 }

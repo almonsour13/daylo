@@ -10,8 +10,8 @@ export default function ActivityList() {
     const { activities, isActivitiesLoading, activitiesError } =
         useActivityContext();
     return (
-        <ColumnView className="px-2">
-            <RowView className="px-4 justify-between items-center">
+        <ColumnView className="px-4">
+            <RowView className="hidden px-4 justify-between items-center">
                 <Text className="text-2xl tracking-wide">
                     {activities.length}{" "}
                     {activities.length > 1 ? "Activities" : "Activity"}

@@ -95,3 +95,67 @@ export const HIDDEN_ON_ROUTES: string[] = [
     "/addActivity", // hide on the add-activity form
     "/settings/", // hide on any individual activity detail screen
 ];
+export const CATEGORY: Record<
+    number,
+    {
+        label: string;
+        color: string;
+        icon: keyof typeof Feather.glyphMap;
+    }
+> = {
+    0: {
+        label: "None",
+        color: "bg-zinc-300",
+        icon: "circle",
+    },
+    1: {
+        label: "Work",
+        color: "bg-blue-400",
+        icon: "briefcase",
+    },
+    2: {
+        label: "Exercise",
+        color: "bg-green-400",
+        icon: "activity",
+    },
+    3: {
+        label: "Personal",
+        color: "bg-purple-400",
+        icon: "user",
+    },
+    4: {
+        label: "Health",
+        color: "bg-red-400",
+        icon: "heart",
+    },
+    5: {
+        label: "Learning",
+        color: "bg-yellow-400",
+        icon: "book-open",
+    },
+    6: {
+        label: "Social",
+        color: "bg-pink-400",
+        icon: "users",
+    },
+    7: {
+        label: "Finance",
+        color: "bg-emerald-400",
+        icon: "dollar-sign",
+    },
+    8: {
+        label: "Home",
+        color: "bg-orange-400",
+        icon: "home",
+    },
+    9: {
+        label: "Travel",
+        color: "bg-cyan-400",
+        icon: "map-pin",
+    },
+    10: {
+        label: "School",
+        color: "bg-indigo-400",
+        icon: "book",
+    },
+};

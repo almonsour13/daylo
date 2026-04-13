@@ -8,7 +8,7 @@ interface Props extends ViewProps {
 export default function Card({ className, children, ...props }: Props) {
     return (
         <View
-            className={clsx("overflow-hidden rounded-4xl", className)}
+            className={clsx("overflow-hidden rounded-xl", className)}
             {...props}
         >
             {children}

@@ -24,6 +24,7 @@ export function AddActivityProvider({ children }: { children: ReactNode }) {
         date: new Date().toISOString().split("T")[0],
         startTime: "08:00",
         endTime: "09:00",
+        status: 1,
         repeat: "",
         notificationEnabled: 1,
     });

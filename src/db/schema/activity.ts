@@ -11,6 +11,13 @@ export const activity = sqliteTable("activity", {
     endTime: text("end_time").notNull(),
 
     // Repeat settings
+    // repeatType: text("repeat_type", {
+    //     enum: ["once", "weekly", "mon_to_fri", "custom"],
+    // })
+    //     .default("once")
+    //     .notNull(),
+    // repeatDays: text("repeat_days").default("[]").notNull(),
+
     repeat: text("repeat").default("[]").notNull(),
 
     // Priority and status

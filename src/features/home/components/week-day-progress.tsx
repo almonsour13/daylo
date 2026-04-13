@@ -16,12 +16,15 @@ export default function WeekDaysProgress() {
 
     return (
         <ColumnView className="">
-            <RowView className="px-4 justify-between items-center">
+            <RowView className="px-4 justify-between items-end">
                 <Text className="text-2xl tracking-wide">
-                    {format(todayMidnight, "dd MMMM, yyyy")}
+                    {format(todayMidnight, "MMMM yyyy")}
+                </Text>
+                <Text className="hidden text-gray-500">
+                    Week {format(todayMidnight, "w")}
                 </Text>
             </RowView>
-            <RowView className="px-2 justify-between items-center">
+            <RowView className="px-4 justify-between items-center">
                 {WEEK_DAYS.map((day, index) => {
                     const date = new Date(startOfWeek);
                     date.setDate(startOfWeek.getDate() + index);
@@ -33,29 +36,20 @@ export default function WeekDaysProgress() {
                     return (
                         <View
                             className={clsx(
-                                "p-4 px-2 flex-1 rounded-4xl flex-col gap-2 justify-between items-center",
-                                isToday ? "bg-black" : "bg-white",
-                                // isToday && "opacity-100",
+                                "flex-col gap-2 justify-between items-center",
                             )}
                             key={day}
                         >
-                            <Text
-                                className={clsx(
-                                    "text-sm font-semibold",
-                                    isToday ? "text-white" : "text-black",
-                                )}
-                            >
-                                {day}
-                            </Text>
+                            <Text className="text-sm font-semibold">{day}</Text>
                             <View
                                 className={clsx(
-                                    "justify-center items-center rounded-full",
-                                    // isToday ? "bg-black" : "bg-white",
+                                    "h-12 aspect-square justify-center items-center rounded-full",
+                                    isToday ? "bg-black" : "bg-white",
                                 )}
                             >
                                 <Text
                                     className={clsx(
-                                        "text- font-semibold",
+                                        "text-sm font-semibold",
                                         isToday ? "text-white" : "text-black",
                                     )}
                                 >

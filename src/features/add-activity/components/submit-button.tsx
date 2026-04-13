@@ -11,12 +11,7 @@ export default function SubmitButton() {
     const isInputValid = isActivityValid(newActivity);
 
     return (
-        <View
-            className="px-4 absolute pb-4 left-0 right-0"
-            style={{
-                bottom: insets.bottom,
-            }}
-        >
+        <View className="p-4 absolute bottom-0 left-0 right-0">
             <TouchableOpacity
                 disabled={!isInputValid}
                 className={clsx(

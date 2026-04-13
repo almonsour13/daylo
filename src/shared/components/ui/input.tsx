@@ -7,7 +7,7 @@ interface Props extends TextInputProps {
 export default function Input({ className, ...props }: Props) {
     return (
         <TextInput
-            className={clsx("bg-white h-12 p-4 py-1 rounded-md", className)}
+            className={clsx("bg-gray-100 h-12 p-4 py-1 rounded-xl", className)}
             {...props}
         />
     );

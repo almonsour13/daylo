@@ -9,7 +9,7 @@ interface Props extends TextProps {
 export default function Label({ children, className, ...props }: Props) {
     return (
         <Text
-            className={clsx("text-base font-semibold text-zinc-500", className)}
+            className={clsx("text-base font-medium text-gray-500", className)}
             {...props}
         >
             {children}

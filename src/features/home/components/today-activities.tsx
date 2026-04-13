@@ -9,9 +9,13 @@ export default function TodayActivities() {
     return (
         <ColumnView className="">
             <RowView className="px-4">
-                <Text className="text-2xl tracking-wide">Today Activities</Text>
+                <Text className="text-2xl leading-normal tracking-wide">
+                    Your Have{" "}
+                    <Text className="font-semibold">{`(${todayActivities.length})`}</Text>{" "}
+                    Activities Today
+                </Text>
             </RowView>
-            <ColumnView className="px-2">
+            <ColumnView className="px-4">
                 {todayActivities.map((activity, i) => (
                     <ActivityCard key={i} activity={activity} />
                 ))}
