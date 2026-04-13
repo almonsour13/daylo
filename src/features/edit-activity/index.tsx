@@ -7,10 +7,10 @@ import DetailsGroup from "../../shared/components/activity-form/group/details-gr
 import OrganizeGroup from "../../shared/components/activity-form/group/organize-group";
 import ScheduleGroup from "../../shared/components/activity-form/group/schedule-group";
 import SettingsGroup from "../../shared/components/activity-form/group/settings-group";
-import Header from "./components/header";
 import SubmitButton from "./components/submit-button";
+import Header from "./components/header";
 
-export default function AddActivityScreen() {
+export default function EditActivityScreen() {
     const { activityForm } = useActivityFormContext();
     const category = CATEGORY[activityForm.category];
 
@@ -18,7 +18,7 @@ export default function AddActivityScreen() {
         <>
             <View
                 className={clsx(
-                    "absolute top-0 bottom-0 left-0 right-0 opacity-100",
+                    "absolute top-0 bottom-0 left-0 right-0",
                     activityForm.category != "none" && category.bgColor,
                 )}
             />
@@ -33,7 +33,7 @@ export default function AddActivityScreen() {
                         </View>
                         <ColumnView
                             className={clsx(
-                                "p-4 pt-6 pb-28 gap-4 bg-white rounded-t-2xl",
+                                "p-4 pt-6 pb-28 gap-4 bg-white rounded-t-4xl",
                             )}
                         >
                             <DetailsGroup />

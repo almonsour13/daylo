@@ -5,7 +5,7 @@ import PriorityBadge from "@/shared/components/ui/activity-card/priority-badge";
 import TimeBadge from "@/shared/components/ui/activity-card/time-badge";
 import Card from "@/shared/components/ui/card";
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
-import { PRIORITY } from "@/shared/constants/constant";
+import { CATEGORY, PRIORITY } from "@/shared/constants/constant";
 import { Activity } from "@/shared/types/activity";
 import { isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
@@ -19,6 +19,7 @@ interface Props {
 export default function ActivityCard({ activity }: Props) {
     const isNotificationEnabled = activity.notificationEnabled === 1;
     const priority = PRIORITY[activity.priority];
+    const category = CATEGORY[activity.category];
     const isUpcoming = isUpcomingDate(activity.date);
 
     return (
@@ -26,15 +27,17 @@ export default function ActivityCard({ activity }: Props) {
             <Card>
                 <View
                     className={clsx(
-                        "absolute z-0 top-0 bottom-0 left-0 right-0 ",
-                        priority.color,
+                        "absolute z-0 top-0 bottom-0 left-0 right-0",
+                        category.bgColor,
                     )}
                 />
                 <ColumnView className={clsx("relative p-4")}>
                     <RowView className="justify-between">
                         <RowView>
-                            <CategoryBadge />
-                            {activity.priority !== 0 && (
+                            {activity.category !== "none" && (
+                                <CategoryBadge category={activity.category} />
+                            )}
+                            {activity.priority !== "none" && (
                                 <PriorityBadge priority={activity.priority} />
                             )}
                         </RowView>
@@ -79,7 +82,7 @@ export default function ActivityCard({ activity }: Props) {
                         </RowView>
                     </RowView>
                     <RowView className="justify-between items-center">
-                        <TouchableOpacity className="h-12 rounded-full flex-1 justify-center items-center bg-white">
+                        <TouchableOpacity className="h-12 rounded-full flex-1 justify-center items-center bg-gray-100">
                             <Text className="text-base text-black">Skip</Text>
                         </TouchableOpacity>
                         <TouchableOpacity className="h-12 rounded-full flex-1 justify-center items-center bg-black">

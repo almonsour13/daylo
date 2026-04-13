@@ -5,28 +5,32 @@ import PriorityBadge from "@/shared/components/ui/activity-card/priority-badge";
 import TimeBadge from "@/shared/components/ui/activity-card/time-badge";
 import Card from "@/shared/components/ui/card";
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
-import { PRIORITY } from "@/shared/constants/constant";
 import { Activity } from "@/shared/types/activity";
 import { parseRepeat } from "@/shared/utils/activity";
 import { isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
-import clsx from "clsx";
 import { Text, View } from "react-native";
 import ActivityDetailsDrawer from "./activity-details-drawer";
+import Badge from "@/shared/components/ui/badge";
+import { CATEGORY, PRIORITY } from "@/shared/constants/constant";
+import clsx from "clsx";
+import { capitalize } from "@/shared/utils/string";
 
 export default function ActivityCard({ activity }: { activity: Activity }) {
     const isUpcoming = isUpcomingDate(activity.date);
-    const repeat = parseRepeat(activity.repeat);
-    const isNotificationEnabled = activity.notificationEnabled === 1;
-    const isDisbled = activity.status === 2;
     const priority = PRIORITY[activity.priority];
+    const category = CATEGORY[activity.category];
+    const repeatDays = parseRepeat(activity.repeatDays);
+    const repeatType = activity.repeatType;
+    const isNotificationEnabled = activity.notificationEnabled === 1;
+    const isDisbled = activity.status === "inactive";
     return (
         <ActivityDetailsDrawer activity={activity}>
             <Card>
                 <View
                     className={clsx(
                         "absolute z-0 top-0 bottom-0 left-0 right-0",
-                        priority.color,
+                        category.bgColor,
                     )}
                 />
                 {isDisbled && (
@@ -35,8 +39,10 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                 <ColumnView className="gap-2 p-4">
                     <RowView className="justify-between items-center">
                         <RowView>
-                            <CategoryBadge />
-                            {activity.priority !== 0 && (
+                            {activity.category && (
+                                <CategoryBadge category={activity.category} />
+                            )}
+                            {activity.priority !== "none" && (
                                 <PriorityBadge priority={activity.priority} />
                             )}
                         </RowView>
@@ -87,11 +93,17 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                             />
                         </RowView>
                     </RowView>
-                    {repeat && (
-                        <RowView className="rounded-full items-center">
-                            <Feather name="repeat" size={16} />
+                    <RowView className="rounded-full items-center">
+                        <Feather name="repeat" size={16} />
+                        {repeatType !== "custom" ? (
+                            <Badge>
+                                <Text className="text-white text-sm">
+                                    {capitalize(repeatType)}
+                                </Text>
+                            </Badge>
+                        ) : (
                             <RowView>
-                                {repeat.map((day) => {
+                                {repeatDays.map((day) => {
                                     return (
                                         <View
                                             key={day}
@@ -104,8 +116,8 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
                                     );
                                 })}
                             </RowView>
-                        </RowView>
-                    )}
+                        )}
+                    </RowView>
                     {isDisbled && (
                         <RowView className="z-3 justify-between items-center">
                             <Text className="text-sm italic">

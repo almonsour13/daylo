@@ -1,58 +1,42 @@
-import { useActivityContext } from "@/features/activity/context/activity-context";
-import DiscardDrawer from "@/shared/components/drawer/discard-drawer";
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
-import Drawer, { DrawerHandle } from "@/shared/components/ui/drawer";
-import { useActivityFormContext } from "@/shared/context/activity-form-context";
 import Feather from "@expo/vector-icons/Feather";
 import { useRouter } from "expo-router";
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
-const PHRASES = [
+const EDIT_PHRASES = [
     {
-        title: "Add something great.",
-        subtitle: "Define it. Schedule it. Do it.",
+        title: "Make it better.",
+        subtitle: "Refine it. Reschedule it. Own it.",
     },
     {
-        title: "What's next?",
-        subtitle: "Set it up and show up.",
+        title: "Update your plan.",
+        subtitle: "Small tweaks, big impact.",
     },
     {
-        title: "Build your day.",
-        subtitle: "Every great day starts with a plan.",
+        title: "Adjust and adapt.",
+        subtitle: "Flexibility is the key to consistency.",
     },
     {
-        title: "Plan it. Own it.",
-        subtitle: "A goal without a plan is just a wish.",
+        title: "Refine your focus.",
+        subtitle: "A better plan leads to better results.",
     },
     {
-        title: "Make it happen.",
-        subtitle: "Small steps, big results.",
-    },
-    {
-        title: "New activity.",
-        subtitle: "Set the hour. Show up. Repeat.",
+        title: "Keep it sharp.",
+        subtitle: "Update it. Improve it. Do it.",
     },
 ];
 
 export default function Header() {
-    const { hasChanges } = useActivityFormContext();
-    const drawerRef = useRef<DrawerHandle>(null);
     const router = useRouter();
 
     // ✅ pick random phrase, stable per render
     const phrase = useMemo(
-        () => PHRASES[Math.floor(Math.random() * PHRASES.length)],
+        () => EDIT_PHRASES[Math.floor(Math.random() * EDIT_PHRASES.length)],
         [],
     );
 
-    const onBack = () => {
-        if (hasChanges) {
-            drawerRef.current?.open();
-            return;
-        }
-        router.back();
-    };
+    const onBack = () => router.back();
 
     return (
         <ColumnView className="">
@@ -70,18 +54,13 @@ export default function Header() {
             </RowView>
             <RowView className="px-4 justify-between ">
                 <View className="flex-1 flex-col">
-                    <Text className="text-2xl text-grasy-500">
-                        {phrase.title}
-                    </Text>
+                    <Text className="text-2xl">{phrase.title}</Text>
                     <Text className="text-4xl leading-normal">
                         {phrase.subtitle}
                     </Text>
                 </View>
                 {/* <View className="h-24 aspect-square bg-reda-200" /> */}
             </RowView>
-            <Drawer ref={drawerRef}>
-                <DiscardDrawer onClose={() => drawerRef.current?.close} />
-            </Drawer>
         </ColumnView>
     );
 }

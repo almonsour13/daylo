@@ -11,7 +11,7 @@ interface Props extends ViewProps {
 export default function DateBadge({ date, className }: Props) {
     return (
         <Badge className={clsx("", className)}>
-            <Feather name="calendar" size={12} color="white" />
+            {/* <Feather name="calendar" size={12} color="white" /> */}
             <Text className="text-sm text-white">
                 {format(date, "dd MMM, yyy")}
             </Text>

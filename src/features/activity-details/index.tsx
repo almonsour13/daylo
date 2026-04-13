@@ -5,7 +5,11 @@ import DurationBadge from "@/shared/components/ui/activity-card/duration-badge";
 import PriorityBadge from "@/shared/components/ui/activity-card/priority-badge";
 import TimeBadge from "@/shared/components/ui/activity-card/time-badge";
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
-import { PRIORITY, WEEK_DAYS } from "@/shared/constants/constant";
+import {
+    PRIORITY,
+    ACTIVITY_REAPEAT_DAYS,
+    CATEGORY,
+} from "@/shared/constants/constant";
 import { parseRepeat } from "@/shared/utils/activity";
 import { getDurationLabel, isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
@@ -48,10 +52,12 @@ export default function ActivityDetailsScreen() {
             </View>
         );
     }
-    const priority = PRIORITY[activityDetails.priority ?? 0];
+    const priority = PRIORITY[activityDetails.priority];
+
+    const category = CATEGORY[activityDetails.category];
     const isUpcoming = isUpcomingDate(activityDetails.date);
-    const repeat = parseRepeat(activityDetails.repeat);
-    const isDisbled = activityDetails.status === 2;
+    const repeat = parseRepeat(activityDetails.repeatDays);
+    const isDisbled = activityDetails.status === "inactive";
     const isNotificationEnabled = activityDetails.notificationEnabled === 1;
 
     return (
@@ -59,7 +65,7 @@ export default function ActivityDetailsScreen() {
             <View
                 className={clsx(
                     "absolute top-0 bottom-0 left-0 right-0",
-                    priority.color,
+                    category.bgColor,
                 )}
             />
             <ScrollView>
@@ -99,8 +105,10 @@ export default function ActivityDetailsScreen() {
                     <ColumnView className="px-4 pt-a4 gap-4">
                         <RowView className="justify-between">
                             <RowView>
-                                <CategoryBadge />
-                                {activityDetails.priority !== 0 && (
+                                <CategoryBadge
+                                    category={activityDetails.category}
+                                />
+                                {activityDetails.priority !== "none" && (
                                     <PriorityBadge
                                         priority={activityDetails.priority}
                                     />
@@ -150,7 +158,7 @@ export default function ActivityDetailsScreen() {
                         </RowView>
                         {repeat.length > 0 && (
                             <RowView className="gap-2">
-                                {WEEK_DAYS.map((day, index) => {
+                                {ACTIVITY_REAPEAT_DAYS.map((day, index) => {
                                     const isActive = repeat.includes(day);
                                     return (
                                         <View

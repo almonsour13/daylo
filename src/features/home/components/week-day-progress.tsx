@@ -1,5 +1,5 @@
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
-import { WEEK_DAYS } from "@/shared/constants/constant";
+import { ACTIVITY_REAPEAT_DAYS } from "@/shared/constants/constant";
 import clsx from "clsx";
 import { format } from "date-fns";
 import { Text, View } from "react-native";
@@ -25,7 +25,7 @@ export default function WeekDaysProgress() {
                 </Text>
             </RowView>
             <RowView className="px-4 justify-between items-center">
-                {WEEK_DAYS.map((day, index) => {
+                {ACTIVITY_REAPEAT_DAYS.map((day, index) => {
                     const date = new Date(startOfWeek);
                     date.setDate(startOfWeek.getDate() + index);
 
@@ -36,20 +36,29 @@ export default function WeekDaysProgress() {
                     return (
                         <View
                             className={clsx(
-                                "flex-col gap-2 justify-between items-center",
+                                "w-12 py-3 flex-col gap-2 justify-between items-center rounded-md",
+                                isToday ? "bg-black" : "bg-white",
                             )}
                             key={day}
                         >
-                            <Text className="text-sm font-semibold">{day}</Text>
+                            <Text
+                                className={clsx(
+                                    "text-sm font-semibold",
+                                    isToday ? "text-white" : "text-black",
+                                )}
+                            >
+                                {day}
+                            </Text>
                             <View
                                 className={clsx(
-                                    "h-12 aspect-square justify-center items-center rounded-full",
-                                    isToday ? "bg-black" : "bg-white",
+                                    // "h-12 aspect-square",
+                                    " justify-center items-center rounded-full",
+                                    // isToday ? "bg-black" : "bg-white",
                                 )}
                             >
                                 <Text
                                     className={clsx(
-                                        "text-sm font-semibold",
+                                        "text-base font-semibold",
                                         isToday ? "text-white" : "text-black",
                                     )}
                                 >

@@ -1,3 +1,9 @@
+import {
+    ACTIVITY_CATEGORIES,
+    ACTIVITY_PRIORITY,
+    ACTIVITY_REPEAT_TYPE,
+    ACTIVITY_STATUS,
+} from "@/shared/constants/constant";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const activity = sqliteTable("activity", {
@@ -10,22 +16,25 @@ export const activity = sqliteTable("activity", {
     startTime: text("start_time").notNull(),
     endTime: text("end_time").notNull(),
 
-    // Repeat settings
-    // repeatType: text("repeat_type", {
-    //     enum: ["once", "weekly", "mon_to_fri", "custom"],
-    // })
-    //     .default("once")
-    //     .notNull(),
-    // repeatDays: text("repeat_days").default("[]").notNull(),
+    repeatType: text("category", { enum: ACTIVITY_REPEAT_TYPE })
+        .default("once")
+        .notNull(),
 
-    repeat: text("repeat").default("[]").notNull(),
+    repeatDays: text("repeat_days").default("[]").notNull(),
 
-    // Priority and status
-    status: integer("status").default(0).notNull(),
-    priority: integer("priority").notNull(),
+    priority: text("priority", { enum: ACTIVITY_PRIORITY })
+        .default("none")
+        .notNull(),
+    category: text("category", { enum: ACTIVITY_CATEGORIES })
+        .default("none")
+        .notNull(),
 
-    // Notifications
     notificationEnabled: integer("notification_enabled").default(0).notNull(),
+    status: text("status", {
+        enum: ACTIVITY_STATUS,
+    })
+        .default("active")
+        .notNull(),
 
     createdAt: integer("created_at", { mode: "timestamp" })
         .defaultNow()

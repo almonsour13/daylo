@@ -1,15 +1,5 @@
 import Feather from "@expo/vector-icons/Feather";
-import { DayAbbrev } from "../types/activity";
-
-export const WEEK_DAYS: DayAbbrev[] = [
-    "Sun",
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat",
-];
+import { Reapet_Days } from "../types/activity";
 
 export const STATUS: Record<
     number,
@@ -40,122 +30,128 @@ export const STATUS: Record<
     },
 };
 
-export const PRIORITY: Record<
-    number,
-    {
-        label: string;
-        color: string;
-        icon: keyof typeof Feather.glyphMap;
-    }
-> = {
-    0: {
+export const ACTIVITY_PRIORITY = ["none", "low", "medium", "high"] as const;
+export const PRIORITY = {
+    none: {
         label: "None",
         color: "bg-zinc-300",
         icon: "circle",
     },
-    1: {
+    low: {
         label: "Low",
-        color: "bg-green-400 opacity-50",
+        color: "bg-green-400",
         icon: "arrow-down-circle",
     },
-    2: {
+    medium: {
         label: "Medium",
-        color: "bg-yellow-400 opacity-50",
-        icon: "minus-circle", // better than plain "circle" for distinction
+        color: "bg-yellow-400",
+        icon: "minus-circle",
     },
-    3: {
+    high: {
         label: "High",
-        color: "bg-red-400 opacity-50",
+        color: "bg-red-400",
         icon: "arrow-up-circle",
     },
 };
-
-export const NAV_ITEMS = [
-    {
-        label: "Home",
-        icon: "home" as const,
-        href: "/", // ← not "/"
-        isVisibile: true,
-    },
-    {
-        label: "__fab__",
-        icon: "plus" as const,
-        href: "/addActivity",
-        isVisibile: true,
-    },
-    {
-        label: "Activity",
-        icon: "activity" as const,
-        href: "/activity",
-        isVisibile: true,
-    },
+export const ACTIVITY_STATUS = [
+    "active",
+    "inactive",
+    "temporary_deleted",
+    "deleted",
 ] as const;
-
-export const HIDDEN_ON_ROUTES: string[] = [
-    "/addActivity", // hide on the add-activity form
-    "/settings/", // hide on any individual activity detail screen
+export const ACTIVITY_REPEAT_TYPE = [
+    "once",
+    "daily",
+    "weekly",
+    "custom",
+] as const;
+export const ACTIVITY_REAPEAT_DAYS: Reapet_Days[] = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
 ];
-export const CATEGORY: Record<
-    number,
-    {
-        label: string;
-        color: string;
-        icon: keyof typeof Feather.glyphMap;
-    }
-> = {
-    0: {
+export const CATEGORY = {
+    none: {
         label: "None",
-        color: "bg-zinc-300",
+        bgColor: "bg-zinc-300",
+        textColor: "text-zinc-700",
         icon: "circle",
     },
-    1: {
+    work: {
         label: "Work",
-        color: "bg-blue-400",
+        bgColor: "bg-blue-400",
+        textColor: "text-blue-900",
         icon: "briefcase",
     },
-    2: {
+    exercise: {
         label: "Exercise",
-        color: "bg-green-400",
+        bgColor: "bg-green-400",
+        textColor: "text-green-900",
         icon: "activity",
     },
-    3: {
+    personal: {
         label: "Personal",
-        color: "bg-purple-400",
+        bgColor: "bg-purple-400",
+        textColor: "text-purple-900",
         icon: "user",
     },
-    4: {
+    health: {
         label: "Health",
-        color: "bg-red-400",
+        bgColor: "bg-red-400",
+        textColor: "text-red-900",
         icon: "heart",
     },
-    5: {
+    learning: {
         label: "Learning",
-        color: "bg-yellow-400",
+        bgColor: "bg-yellow-400",
+        textColor: "text-yellow-900",
         icon: "book-open",
     },
-    6: {
+    social: {
         label: "Social",
-        color: "bg-pink-400",
+        bgColor: "bg-pink-400",
+        textColor: "text-pink-900",
         icon: "users",
     },
-    7: {
+    finance: {
         label: "Finance",
-        color: "bg-emerald-400",
+        bgColor: "bg-emerald-400",
+        textColor: "text-emerald-900",
         icon: "dollar-sign",
     },
-    8: {
+    home: {
         label: "Home",
-        color: "bg-orange-400",
+        bgColor: "bg-orange-400",
+        textColor: "text-orange-900",
         icon: "home",
     },
-    9: {
+    travel: {
         label: "Travel",
-        color: "bg-cyan-400",
+        bgColor: "bg-cyan-400",
+        textColor: "text-cyan-900",
         icon: "map-pin",
     },
-    10: {
+    school: {
         label: "School",
-        color: "bg-indigo-400",
+        bgColor: "bg-indigo-400",
+        textColor: "text-indigo-900",
         icon: "book",
     },
 };
+export const ACTIVITY_CATEGORIES = [
+    "none",
+    "health",
+    "work",
+    "personal",
+    "exercise",
+    "travel",
+    "school",
+    "home",
+    "learning",
+    "finance",
+    "social",
+] as const;

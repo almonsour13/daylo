@@ -1,4 +1,4 @@
-import { HIDDEN_ON_ROUTES, NAV_ITEMS } from "@/shared/constants/constant";
+import { HIDDEN_ON_ROUTES, NAV_ITEMS } from "@/shared/constants/screen";
 import Feather from "@expo/vector-icons/Feather";
 import { usePathname, useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
@@ -67,7 +67,7 @@ export default function BottomNavBar() {
                         );
                     })}
                 </View>
-                <Pressable onPress={() => router.push("/addActivity")}>
+                <Pressable onPress={() => router.push("/activity/add")}>
                     <View className="h-18 aspect-square justify-center items-center bg-black rounded-full">
                         <Feather name="plus" size={24} color="white" />
                     </View>

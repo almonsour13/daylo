@@ -1,10 +1,7 @@
 import { ColumnView } from "@/shared/components/ui/custom-view";
-import { Button, ScrollView } from "react-native";
-import Header from "./components/header";
-import TodayActivities from "./components/today-activities";
-import WeekDaysProgress from "./components/week-day-progress";
-import { notificationService } from "@/services/notifications/notification-service";
 import * as BackgroundTask from "expo-background-task";
+import { ScrollView } from "react-native";
+import Header from "./components/header";
 export default function HomeScreen() {
     const triggerManualTask = async () => {
         console.log("Manually triggering background worker...");
@@ -19,8 +16,9 @@ export default function HomeScreen() {
         >
             <ColumnView className="pb-28 gap-8">
                 <Header />
-                <WeekDaysProgress />
-                <TodayActivities />
+                {/* <Calendar /> */}
+                {/* <WeekDaysProgress />
+                <TodayActivities /> */}
             </ColumnView>
         </ScrollView>
     );

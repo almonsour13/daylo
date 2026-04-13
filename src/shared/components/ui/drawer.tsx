@@ -26,7 +26,7 @@ export interface DrawerHandle {
 const Drawer = forwardRef<
     DrawerHandle,
     {
-        triggerButton: React.ReactNode;
+        triggerButton?: React.ReactNode;
         children: React.ReactNode;
     }
 >(({ triggerButton, children }, ref) => {

@@ -1,26 +1,36 @@
-export type DayAbbrev = "Sun" | "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat";
+export type Priority = "none" | "low" | "medium" | "high";
+export type Category =
+    | "none"
+    | "work"
+    | "exercise"
+    | "personal"
+    | "health"
+    | "learning"
+    | "social"
+    | "finance"
+    | "home"
+    | "travel"
+    | "school"; // ✅ no "general"
+export type Repeat_Type = "once" | "daily" | "weekly" | "custom";
+export type Reapet_Days = "Sun" | "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat";
 
-export type ActivityStatus = 0 | 1; // 0 = inactive, 1 = active
-export type ActivityPriority = 1 | 2 | 3; // 1 = low, 2 = medium, 3 = high
+export type Status = "active" | "inactive" | "temporary_deleted" | "deleted";
 
 export type Activity = {
     id: number;
     name: string;
     description: string | null;
+    priority: Priority;
+    category: Category;
     date: string; // 'YYYY-MM-DD'
     startTime: string; // 'HH:mm'
     endTime: string; // 'HH:mm'
-    repeat: string; // raw JSON string from DB — parse when needed
-    status: number;
-    priority: number;
+    repeatType: Repeat_Type;
+    repeatDays: string;
+    status: Status;
     notificationEnabled: number; // 0 | 1
     createdAt: Date;
     updatedAt: Date;
-};
-
-// Parsed helper type — use this in components
-export type ActivityWithRepeat = Omit<Activity, "repeat"> & {
-    repeat: DayAbbrev[];
 };
 
 export type ActivityRecord = {

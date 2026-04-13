@@ -5,7 +5,7 @@ import PriorityBadge from "@/shared/components/ui/activity-card/priority-badge";
 import TimeBadge from "@/shared/components/ui/activity-card/time-badge";
 import { ColumnView, RowView } from "@/shared/components/ui/custom-view";
 import Drawer, { DrawerHandle } from "@/shared/components/ui/drawer";
-import { PRIORITY } from "@/shared/constants/constant";
+import { CATEGORY, PRIORITY } from "@/shared/constants/constant";
 import { Activity } from "@/shared/types/activity";
 import { isUpcomingDate } from "@/shared/utils/time";
 import Feather from "@expo/vector-icons/Feather";
@@ -23,6 +23,7 @@ export default function ActivityPreviewDrawer({ children, activity }: Props) {
     const router = useRouter();
     const isNotificationEnabled = activity.notificationEnabled === 1;
     const priority = PRIORITY[activity.priority];
+    const category = CATEGORY[activity.category];
     const isUpcoming = isUpcomingDate(activity.date);
     const handleDirectToActivityDetailsScreen = () => {
         router.push(`/${activity.id}`);
@@ -33,15 +34,19 @@ export default function ActivityPreviewDrawer({ children, activity }: Props) {
                 <View
                     className={clsx(
                         "absolute z-0 top-0 bottom-0 left-0 right-0",
-                        priority.color,
+                        category.bgColor,
                     )}
                 />
                 <View className="p-4">
                     <ColumnView className="gap-4">
                         <RowView className="justify-between">
                             <RowView>
-                                <CategoryBadge />
-                                {activity.priority !== 0 && (
+                                {activity.category && (
+                                    <CategoryBadge
+                                        category={activity.category}
+                                    />
+                                )}
+                                {activity.priority !== "none" && (
                                     <PriorityBadge
                                         priority={activity.priority}
                                     />

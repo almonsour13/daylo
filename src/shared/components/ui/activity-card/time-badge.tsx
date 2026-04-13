@@ -23,7 +23,7 @@ export default function TimeBadge({
 
     return (
         <Badge className={clsx("", className)}>
-            <Feather name="clock" size={12} color="white" />
+            {/* <Feather name="clock" size={12} color="white" /> */}
             <Text className="text-sm text-white">
                 {format(start, "p")} - {format(end, "p")}
             </Text>
