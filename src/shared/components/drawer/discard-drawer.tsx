@@ -26,7 +26,7 @@ export default function DiscardDrawer({ onClose, onSuccess }: Props) {
                     onPress={onSuccess}
                     className="flex-1 h-16 rounded-full bg-red-500 justify-center items-center"
                 >
-                    <Text className="text-white"></Text>
+                    <Text className="text-white">Discard</Text>
                 </TouchableOpacity>
             </RowView>
         </ColumnView>

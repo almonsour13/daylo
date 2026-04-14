@@ -37,6 +37,7 @@ const RepeatDaysDrawer = forwardRef<DrawerHandle, Props>(
 
         return (
             <Drawer
+                disableOpacity={true}
                 ref={(node) => {
                     // ✅ sync both refs
                     innerRef.current = node;
@@ -87,7 +88,10 @@ const RepeatDaysDrawer = forwardRef<DrawerHandle, Props>(
                             <Text>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            className="flex-1 h-16 rounded-full justify-center items-center bg-black"
+                            className={clsx(
+                                "flex-1 h-16 rounded-full justify-center items-center bg-black",
+                                !isValid && "opacity-50",
+                            )}
                             onPress={handleDone}
                             disabled={!isValid}
                         >

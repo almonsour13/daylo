@@ -52,10 +52,10 @@ export default function Header() {
                     <Feather name="more-vertical" size={20} />
                 </TouchableOpacity>
             </RowView>
-            <RowView className="px-4 justify-between ">
+            <RowView className="px-4 justify-between text-neutral-900">
                 <View className="flex-1 flex-col">
                     <Text className="text-2xl">{phrase.title}</Text>
-                    <Text className="text-4xl leading-normal">
+                    <Text className="text-4xl leading-normal text-neutral-900">
                         {phrase.subtitle}
                     </Text>
                 </View>

@@ -16,10 +16,10 @@ export const unstable_settings = {
 
 export default function RootLayout() {
     const { setColorScheme } = useColorScheme();
-    useDrizzleStudio(expoDb);
-    const { success, error } = useMigrations(db, migrations);
+    // useDrizzleStudio(expoDb);
+    // const { success, error } = useMigrations(db, migrations);
 
-    console.log("[migrations] success:", success, "error:", error);
+    // console.log("[migrations] success:", success, "error:", error);
 
     useEffect(() => {
         setColorScheme("light");

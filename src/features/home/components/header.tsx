@@ -46,7 +46,9 @@ export default function Header() {
                     <Text className="text-2xl text-gray-500">
                         Good {greeting}, Monsour
                     </Text>
-                    <Text className="text-5xl leading-normal">{phrase}</Text>
+                    <Text className="text-5xl leading-normal text-neutral-900">
+                        {phrase}
+                    </Text>
                 </View>
                 <View className="hidden opacity-0 h-12 aspect-square rounded-full bg-black justify-center items-center">
                     <Text className="text-xl text-white">M</Text>

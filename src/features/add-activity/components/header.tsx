@@ -70,17 +70,23 @@ export default function Header() {
             </RowView>
             <RowView className="px-4 justify-between ">
                 <View className="flex-1 flex-col">
-                    <Text className="text-2xl text-grasy-500">
+                    <Text className="text-2xl text-neutral-900">
                         {phrase.title}
                     </Text>
-                    <Text className="text-4xl leading-normal">
+                    <Text className="text-4xl leading-normal text-neutral-900">
                         {phrase.subtitle}
                     </Text>
                 </View>
                 {/* <View className="h-24 aspect-square bg-reda-200" /> */}
             </RowView>
-            <Drawer ref={drawerRef}>
-                <DiscardDrawer onClose={() => drawerRef.current?.close} />
+            <Drawer disableOpacity={true} ref={drawerRef}>
+                <DiscardDrawer
+                    onClose={() => drawerRef.current?.close()}
+                    onSuccess={() => {
+                        drawerRef.current?.close();
+                        router.back();
+                    }}
+                />
             </Drawer>
         </ColumnView>
     );

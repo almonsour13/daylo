@@ -9,6 +9,7 @@ import ScheduleGroup from "../../shared/components/activity-form/group/schedule-
 import SettingsGroup from "../../shared/components/activity-form/group/settings-group";
 import Header from "./components/header";
 import SubmitButton from "./components/submit-button";
+import TimeRangeDrawer from "@/shared/components/activity-form/drawer/time-range-drawer";
 
 export default function AddActivityScreen() {
     const { activityForm } = useActivityFormContext();
@@ -43,6 +44,7 @@ export default function AddActivityScreen() {
                         </ColumnView>
                     </ColumnView>
                 </ColumnView>
+                <TimeRangeDrawer />
             </ScrollView>
             <SubmitButton />
         </>

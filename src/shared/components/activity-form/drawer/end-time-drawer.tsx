@@ -11,7 +11,11 @@ export default function EndTimeDrawer({ children }: Props) {
     const { activityForm, setActivityForm } = useActivityFormContext();
 
     return (
-        <Drawer ref={drawerRef} triggerButton={children}>
+        <Drawer
+            disableTrigger={activityForm.startTime === ""}
+            ref={drawerRef}
+            triggerButton={children}
+        >
             <View className="pb-4"></View>
         </Drawer>
     );

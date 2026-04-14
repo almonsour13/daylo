@@ -3,6 +3,7 @@ import { ScrollView } from "react-native";
 import Header from "./components/header";
 import WeekDaysProgress from "./components/week-day-progress";
 import TodayActivities from "./components/today-activities";
+import TimeSelector from "@/shared/components/ui/time/time";
 export default function HomeScreen() {
     return (
         <ScrollView
@@ -11,8 +12,9 @@ export default function HomeScreen() {
         >
             <ColumnView className="pb-28 gap-8">
                 <Header />
-                <WeekDaysProgress />
-                <TodayActivities />
+                {/* <TimeSelector /> */}
+                {/* <WeekDaysProgress />
+                <TodayActivities /> */}
             </ColumnView>
         </ScrollView>
     );

@@ -5,6 +5,9 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Text, View } from "react-native";
 import CategoryDrawer from "../drawer/category-drawer";
 import PriorityDrawer from "../drawer/priority-drawer";
+import clsx from "clsx";
+import { CATEGORY } from "@/shared/constants/constant";
+import { capitalize } from "@/shared/utils/string";
 
 export default function OrganizeGroup() {
     const { activityForm, setActivityForm } = useActivityFormContext();
@@ -16,8 +19,13 @@ export default function OrganizeGroup() {
                     <RowView className="p-4 rounded-md justify-between items-center bg-gray-100">
                         <Text className="text-base font-medium">Category</Text>
                         <RowView className="items-center">
-                            <Text className="text-sm text-gray-500">
-                                {activityForm.category}
+                            <Text
+                                className={clsx(
+                                    "text-sm text-gray-500",
+                                    // CATEGORY[activityForm.category].textColor,
+                                )}
+                            >
+                                {capitalize(activityForm.category)}
                             </Text>
                             <MaterialIcons
                                 name="arrow-forward-ios"
@@ -32,7 +40,7 @@ export default function OrganizeGroup() {
                         <Text className="text-base font-medium">Priority</Text>
                         <RowView className="items-center">
                             <Text className="text-sm text-gray-500">
-                                {activityForm.priority}
+                                {capitalize(activityForm.priority)}
                             </Text>
                             <MaterialIcons
                                 name="arrow-forward-ios"

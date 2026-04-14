@@ -28,6 +28,7 @@ interface Props {
 export default function Calendar({ defaultDate, onSelectDate }: Props) {
     const dayWheelRef = useRef<WheelHandle>(null);
     const today = new Date();
+    const hasInteracted = useRef(false);
 
     const parseDefault = () => {
         if (!defaultDate) return { month: 0, day: 0 };
@@ -75,10 +76,13 @@ export default function Calendar({ defaultDate, onSelectDate }: Props) {
     // ✅ FIX: compute weekday from REAL date
     const selectedDate = new Date(viewYear, realMonth, actualDay + 1);
     const weekday = DAYS[selectedDate.getDay()];
+
     useEffect(() => {
-        const formatted = selectedDate.toISOString().split("T")[0]; // "2025-04-13"
+        if (!hasInteracted.current) return;
+        const formatted = selectedDate.toISOString().split("T")[0];
         onSelectDate?.(formatted);
     }, [actualDay, realMonth, viewYear]);
+
     // prevent overflow
     useEffect(() => {
         if (viewDay >= filteredDays.length) {
@@ -86,6 +90,17 @@ export default function Calendar({ defaultDate, onSelectDate }: Props) {
         }
     }, [viewMonth]);
 
+    const handleMonthSelect = (i: number) => {
+        hasInteracted.current = true;
+        setViewMonth(i);
+        setViewDay(0);
+        setTimeout(() => dayWheelRef.current?.reset(), 0);
+    };
+
+    const handleDaySelect = (i: number) => {
+        hasInteracted.current = true;
+        setViewDay(i);
+    };
     return (
         <View className="p-4">
             <ColumnView className="items-center">
@@ -98,13 +113,7 @@ export default function Calendar({ defaultDate, onSelectDate }: Props) {
                     <Wheel
                         data={filteredMonths}
                         initialIndex={defaults.month} // ← was hardcoded 0
-                        onSelect={(i) => {
-                            setViewMonth(i);
-                            setViewDay(0);
-                            setTimeout(() => {
-                                dayWheelRef.current?.reset();
-                            }, 0);
-                        }}
+                        onSelect={handleMonthSelect}
                     />
 
                     <Wheel
@@ -115,7 +124,7 @@ export default function Calendar({ defaultDate, onSelectDate }: Props) {
                             return `${d} ${DAYS[date.getDay()]} `;
                         })}
                         initialIndex={defaults.day} // ← was hardcoded 0
-                        onSelect={(i) => setViewDay(i)}
+                        onSelect={handleDaySelect}
                     />
                 </View>
             </ColumnView>

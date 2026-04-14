@@ -74,7 +74,15 @@ export const ACTIVITY_REAPEAT_DAYS: Reapet_Days[] = [
     "Fri",
     "Sat",
 ];
-export const CATEGORY = {
+export const CATEGORY: Record<
+    string,
+    {
+        label: string;
+        bgColor: string;
+        textColor: string;
+        icon: keyof typeof Feather.glyphMap;
+    }
+> = {
     none: {
         label: "None",
         bgColor: "bg-zinc-300",

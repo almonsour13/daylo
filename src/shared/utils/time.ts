@@ -1,5 +1,6 @@
 import { parse } from "date-fns";
 export const toDateTime = (date: string, time: string): Date => {
+    if (!date || !time) return new Date(NaN);
     return parse(`${date} ${time}`, "yyyy-MM-dd HH:mm", new Date());
 };
 export function getDurationLabel(

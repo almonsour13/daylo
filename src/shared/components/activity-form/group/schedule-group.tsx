@@ -9,34 +9,56 @@ import DateDrawer from "../drawer/date-drawer";
 import EndTimeDrawer from "../drawer/end-time-drawer";
 import RepeatTypeDrawer from "../drawer/repeat-type-drawer";
 import StartTimeDrawer from "../drawer/start-time-drawer";
+import { capitalize } from "@/shared/utils/string";
+import { parseRepeat } from "@/shared/utils/activity";
 
 export default function ScheduleGroup() {
-    const { activityForm, setActivityForm } = useActivityFormContext();
+    const { activityForm } = useActivityFormContext();
+
+    const safeFormat = (date: Date, fmt: string) => {
+        if (!date || isNaN(date.getTime())) return null;
+        return format(date, fmt);
+    };
+
     const schedule = [
         {
             name: "Date",
-            value: format(new Date(activityForm.date), "dd, MMM yyyy"),
+            value: activityForm.date
+                ? (safeFormat(new Date(activityForm.date), "dd, MMM yyyy") ??
+                  "Select Date")
+                : "Select Date",
             drawer: DateDrawer,
         },
         {
             name: "Start Time",
-            value: format(
-                toDateTime(activityForm.date, activityForm.startTime),
-                "p",
-            ),
+            value:
+                activityForm.date && activityForm.startTime
+                    ? format(
+                          toDateTime(activityForm.date, activityForm.startTime),
+                          "p",
+                      )
+                    : "Select Start Time",
             drawer: StartTimeDrawer,
         },
-        {
-            name: "End Time",
-            value: format(
-                toDateTime(activityForm.date, activityForm.endTime),
-                "p",
-            ),
-            drawer: EndTimeDrawer,
-        },
+        // {
+        //     name: "End Time",
+        //     value:
+        //         activityForm.date && activityForm.endTime
+        //             ? format(
+        //                   toDateTime(activityForm.date, activityForm.endTime),
+        //                   "p",
+        //               )
+        //             : "Select End Time",
+        //     drawer: EndTimeDrawer,
+        // },
         {
             name: "Repeat",
-            value: activityForm.repeatType,
+            value:
+                activityForm.repeatType !== "custom"
+                    ? capitalize(activityForm.repeatType)
+                    : parseRepeat(activityForm.repeatDays)
+                          .map((day) => capitalize(day))
+                          .join(", "),
             drawer: RepeatTypeDrawer,
         },
     ];
