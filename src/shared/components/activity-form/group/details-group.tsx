@@ -3,7 +3,7 @@ import Input from "@/shared/components/ui/input";
 import InputField from "@/shared/components/ui/input-field";
 import Label from "@/shared/components/ui/label";
 import { useActivityFormContext } from "@/shared/context/activity-form-context";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 const NAME_PLACEHOLDERS = [
     "e.g. Morning Walk",
@@ -30,10 +30,8 @@ const DESCRIPTION_PLACEHOLDERS = [
 export default function DetailsGroup() {
     const { activityForm, setActivityForm } = useActivityFormContext();
 
-    // ✅ stable random placeholder per render
-    const randomIndex = useMemo(
-        () => Math.floor(Math.random() * NAME_PLACEHOLDERS.length),
-        [],
+    const [randomIndex] = useState(() =>
+        Math.floor(Math.random() * NAME_PLACEHOLDERS.length),
     );
 
     const namePlaceholder = NAME_PLACEHOLDERS[randomIndex];

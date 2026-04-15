@@ -144,6 +144,7 @@ export default function ActivityDetailsDrawer({ activity, children }: Props) {
                         </TouchableOpacity>
                         <View className="flex-1">
                             <Drawer
+                                disableOpacity={true}
                                 ref={moveToTrashDrawerRef}
                                 triggerButton={
                                     <View className="h-16 rounded-full justify-center items-center bg-red-500">

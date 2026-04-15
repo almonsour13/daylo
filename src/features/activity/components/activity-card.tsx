@@ -17,6 +17,7 @@ import clsx from "clsx";
 import { capitalize } from "@/shared/utils/string";
 
 export default function ActivityCard({ activity }: { activity: Activity }) {
+    console.log("Activity:", activity);
     const isUpcoming = isUpcomingDate(activity.date);
     const priority = PRIORITY[activity.priority];
     const category = CATEGORY[activity.category];

@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 import { ColumnView, RowView } from "../custom-view";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Wheel from "./wheel";
 
 const HOURS = Array.from({ length: 12 }, (_, i) =>
@@ -16,16 +16,18 @@ interface Props {
     defaultTime?: string;
     minTime?: string;
     maxTime?: string;
+    onSelect?: (v: string) => void;
 }
 export default function TimeSelector({
     type = "start",
-    defaultTime = "13:00", //start time
+    defaultTime = "", //start time
     minTime = "",
-    maxTime = "15:00",
+    maxTime = "",
+    onSelect,
 }: Props) {
     const parseTime = (time: string) => {
         //default time is 24 hours format convert to 12 hours
-        const [hour, minute] = defaultTime.split(":");
+        const [hour, minute] = time.split(":");
         const integerHour = parseInt(hour);
         const integerMinute = parseInt(minute);
 
@@ -40,30 +42,38 @@ export default function TimeSelector({
         };
     };
     const parseDefaultTime = parseTime(defaultTime);
+    const hasInteracted = useRef(false);
     const [hour, setHour] = useState(parseDefaultTime.hourIndex);
     const [minute, setMinute] = useState(parseDefaultTime.minuteIndex);
     const [period, setPeriod] = useState(parseDefaultTime.periodIndex);
 
-    const displayHour = HOURS[hour];
-    const displayMinute = MINUTES[minute];
-    const displayPeriod = PERIODS[period];
-
     const handleHour = (i: number) => {
+        hasInteracted.current = true;
         setHour(i);
     };
     const handleMinute = (i: number) => {
+        hasInteracted.current = true;
         setMinute(i);
     };
     const handlePeriod = (i: number) => {
+        hasInteracted.current = true;
         setPeriod(i);
     };
+    const to24Hour = () => {
+        let h = hour + 1;
 
-    const parseMinTime = parseTime(minTime);
-    const parseMaxTime = parseTime(maxTime);
+        if (period === 0 && h === 12) h = 0; // AM
+        if (period === 1 && h !== 12) h += 12; // PM
 
-    const filteredHours = HOURS.filter((_, i) => {});
-    const filteredMinutes = MINUTES.filter((_, i) => {});
-    const filteredPeriods = PERIODS.filter((_, i) => {});
+        return `${String(h).padStart(2, "0")}:${MINUTES[minute]}`;
+    };
+
+    useEffect(() => {
+        if (!hasInteracted.current) return;
+
+        const formattedTime = to24Hour(); // ✅ FIXED
+        onSelect?.(formattedTime);
+    }, [hour, minute, period]);
     return (
         <ColumnView className="items-center">
             <RowView>

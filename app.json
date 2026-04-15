@@ -7,6 +7,14 @@
     "icon": "./assets/images/icon.png",
     "scheme": "daylo",
     "userInterfaceStyle": "light",
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#ffffff"
+    },
+    "androidNavigationBar": {
+      "backgroundColor": "#ffffff",
+      "barStyle": "dark-content"
+    },
     "newArchEnabled": true,
     "ios": {
       "userInterfaceStyle": "light",

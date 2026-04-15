@@ -10,7 +10,7 @@ const customLogger = {
 };
 
 console.log("[DB] Opening database...");
-export const expoDb = SQLite.openDatabaseSync("db.db");
+export const expoDb = SQLite.openDatabaseSync("app-1.db");
 console.log("[DB] Database opened successfully");
 
 export const db = drizzle(expoDb, { schema, logger: customLogger });

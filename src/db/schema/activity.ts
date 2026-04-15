@@ -16,7 +16,7 @@ export const activity = sqliteTable("activity", {
     startTime: text("start_time").notNull(),
     endTime: text("end_time").notNull(),
 
-    repeatType: text("category", { enum: ACTIVITY_REPEAT_TYPE })
+    repeatType: text("repeatType", { enum: ACTIVITY_REPEAT_TYPE })
         .default("once")
         .notNull(),
 

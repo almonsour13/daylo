@@ -15,6 +15,7 @@ import {
     StyleSheet,
     View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const DISMISS_THRESHOLD = 120;
 const ANIMATION_DURATION = 300;
@@ -30,17 +31,20 @@ const Drawer = forwardRef<
         children: React.ReactNode;
         disableTrigger?: boolean; // ← disables the trigger button only
         disableOpacity?: boolean;
+        disableHandle?: boolean;
     }
 >(
     (
         {
             disableTrigger = false,
             disableOpacity = false,
+            disableHandle = false,
             triggerButton,
             children,
         },
         ref,
     ) => {
+        const insets = useSafeAreaInsets();
         const windowHeight = Dimensions.get("window").height;
 
         const contentHeightRef = useRef(windowHeight);
@@ -168,16 +172,21 @@ const Drawer = forwardRef<
                     <Animated.View
                         style={[
                             styles.drawer,
-                            { transform: [{ translateY: combinedTranslate }] },
+                            {
+                                transform: [{ translateY: combinedTranslate }],
+                                paddingBottom: insets.bottom,
+                            },
                         ]}
                         onLayout={onLayout}
                     >
-                        <View
-                            style={styles.handleArea}
-                            {...panResponder.panHandlers}
-                        >
-                            <View style={styles.handle} />
-                        </View>
+                        {!disableHandle && (
+                            <View
+                                style={styles.handleArea}
+                                {...panResponder.panHandlers}
+                            >
+                                <View style={styles.handle} />
+                            </View>
+                        )}
                         {children}
                     </Animated.View>
                 </Modal>
@@ -208,7 +217,7 @@ const styles = StyleSheet.create({
     },
     handleArea: {
         alignItems: "center",
-        paddingVertical: 16,
+        paddingTop: 16,
         zIndex: 9999,
     },
     handle: {

@@ -34,7 +34,7 @@ export default function AddActivityScreen() {
                         </View>
                         <ColumnView
                             className={clsx(
-                                "p-4 pt-6 pb-28 gap-4 bg-white rounded-t-2xl",
+                                "p-4 pt-6 pb-28 gap-4 bg-white rounded-t-2xl shadow-lg shadow-gray-300",
                             )}
                         >
                             <DetailsGroup />

@@ -1,10 +1,9 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import {
-    ScrollView,
-    Text,
-    View,
-    NativeSyntheticEvent,
+    Animated,
     NativeScrollEvent,
+    NativeSyntheticEvent,
+    View,
 } from "react-native";
 
 export interface WheelHandle {
@@ -15,6 +14,7 @@ interface Props {
     data: string[] | number[];
     initialIndex: number;
     onSelect: (i: number) => void;
+    width?: number;
 }
 
 const ITEM_HEIGHT = 48;
@@ -23,19 +23,34 @@ const EDGE_ITEMS = 2;
 const PICKER_HEIGHT = ITEM_HEIGHT * VISIBLE_ITEMS;
 
 const Wheel = forwardRef<WheelHandle, Props>(
-    ({ data, initialIndex, onSelect }, ref) => {
-        const scrollRef = useRef<ScrollView>(null);
+    ({ data, initialIndex, onSelect, width = 140 }, ref) => {
+        const scrollY = useRef(
+            new Animated.Value(initialIndex * ITEM_HEIGHT),
+        ).current;
+        const scrollRef = useRef<any>(null);
+        const [hasScrolled, setHasScrolled] = useState(false);
         const [selectedIndex, setSelectedIndex] = useState(initialIndex);
 
         useImperativeHandle(ref, () => ({
             reset: () => {
                 scrollRef.current?.scrollTo({ y: 0, animated: true });
+                scrollY.setValue(0);
                 setSelectedIndex(0);
+                setHasScrolled(false);
                 onSelect(0);
             },
         }));
 
-        const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+        const handleLayout = () => {
+            scrollRef.current?.scrollTo({
+                y: initialIndex * ITEM_HEIGHT,
+                animated: false,
+            });
+        };
+
+        const handleMomentumEnd = (
+            e: NativeSyntheticEvent<NativeScrollEvent>,
+        ) => {
             const y = e.nativeEvent.contentOffset.y;
             const index = Math.round(y / ITEM_HEIGHT);
             const clamped = Math.max(0, Math.min(index, data.length - 1));
@@ -44,92 +59,198 @@ const Wheel = forwardRef<WheelHandle, Props>(
         };
 
         return (
-            <View
-                className="overflow-hidden relative"
-                style={{ height: PICKER_HEIGHT, width: 140 }}
-            >
-                {/* ── Selection highlight bar ── */}
+            <View style={{ height: PICKER_HEIGHT, width, overflow: "hidden" }}>
+                {/* Selection band */}
                 <View
-                    className="absolute left-0 right-0 z-10 border-y border-black/[0.12] bg-black/[0.04]"
-                    style={{
-                        top: ITEM_HEIGHT * EDGE_ITEMS,
-                        height: ITEM_HEIGHT,
-                    }}
                     pointerEvents="none"
+                    style={{
+                        position: "absolute",
+                        top: ITEM_HEIGHT * EDGE_ITEMS,
+                        left: 0,
+                        right: 0,
+                        height: ITEM_HEIGHT,
+                        borderTopWidth: 0.5,
+                        borderBottomWidth: 0.5,
+                        borderColor: "#E5E5E5",
+                        zIndex: 1,
+                    }}
                 />
 
-                <ScrollView
+                <Animated.ScrollView
                     ref={scrollRef}
                     snapToInterval={ITEM_HEIGHT}
                     decelerationRate="fast"
                     showsVerticalScrollIndicator={false}
                     scrollEventThrottle={16}
-                    onMomentumScrollEnd={handleScroll}
-                    contentOffset={{ x: 0, y: initialIndex * ITEM_HEIGHT }}
+                    onLayout={handleLayout}
+                    onMomentumScrollEnd={handleMomentumEnd}
                     contentContainerStyle={{
                         paddingTop: ITEM_HEIGHT * EDGE_ITEMS,
                         paddingBottom: ITEM_HEIGHT * EDGE_ITEMS,
                     }}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+                        {
+                            useNativeDriver: true,
+                            listener: () => {
+                                if (!hasScrolled) setHasScrolled(true);
+                            },
+                        },
+                    )}
                 >
                     {data.map((item, i) => {
                         const distance = Math.abs(i - selectedIndex);
-
-                        const opacity =
+                        const staticScale =
                             distance === 0
-                                ? "opacity-100"
+                                ? 1
                                 : distance === 1
-                                  ? "opacity-40"
+                                  ? 0.9
                                   : distance === 2
-                                    ? "opacity-15"
-                                    : "opacity-5";
-
-                        const fontSize =
+                                    ? 0.8
+                                    : 0.7;
+                        const staticOpacity =
                             distance === 0
-                                ? "text-[22px] font-bold tracking-wide"
-                                : "text-lg font-normal";
+                                ? 1
+                                : distance === 1
+                                  ? 0.5
+                                  : distance === 2
+                                    ? 0.25
+                                    : 0.1;
 
-                        const scale =
-                            distance === 0 ? 1 : distance === 1 ? 0.88 : 0.78;
+                        const inputRange = [
+                            (i - 3) * ITEM_HEIGHT,
+                            (i - 2) * ITEM_HEIGHT,
+                            (i - 1) * ITEM_HEIGHT,
+                            i * ITEM_HEIGHT,
+                            (i + 1) * ITEM_HEIGHT,
+                            (i + 2) * ITEM_HEIGHT,
+                            (i + 3) * ITEM_HEIGHT,
+                        ];
+
+                        const animatedScale = scrollY.interpolate({
+                            inputRange,
+                            outputRange: [0.7, 0.8, 0.9, 1, 0.9, 0.8, 0.7],
+                            extrapolate: "clamp",
+                        });
+
+                        const animatedOpacity = scrollY.interpolate({
+                            inputRange,
+                            outputRange: [0.1, 0.25, 0.5, 1, 0.5, 0.25, 0.1],
+                            extrapolate: "clamp",
+                        });
+
+                        const fontWeight = distance === 0 ? "500" : "400";
 
                         return (
                             <View
                                 key={`${item}-${i}`}
-                                className="justify-center items-center"
-                                style={{ height: ITEM_HEIGHT }}
+                                style={{
+                                    height: ITEM_HEIGHT,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
                             >
-                                <Text
-                                    className={`text-neutral-900 ${opacity} ${fontSize}`}
-                                    style={{ transform: [{ scale }] }}
+                                <Animated.Text
+                                    style={{
+                                        fontSize: 16,
+                                        fontWeight,
+                                        color: "#000",
+                                        letterSpacing: 0.2,
+                                        opacity: hasScrolled
+                                            ? animatedOpacity
+                                            : staticOpacity,
+                                        transform: [
+                                            {
+                                                scale: hasScrolled
+                                                    ? animatedScale
+                                                    : staticScale,
+                                            },
+                                        ],
+                                    }}
                                 >
                                     {item}
-                                </Text>
+                                </Animated.Text>
                             </View>
                         );
                     })}
-                </ScrollView>
+                </Animated.ScrollView>
 
-                {/* ── Top fade mask ── */}
+                {/* Top fade mask */}
                 <View
-                    className="absolute top-0 left-0 right-0 z-20 flex-col"
-                    style={{ height: ITEM_HEIGHT * EDGE_ITEMS }}
                     pointerEvents="none"
+                    style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: ITEM_HEIGHT * EDGE_ITEMS,
+                        zIndex: 2,
+                        flexDirection: "column",
+                    }}
                 >
-                    <View className="flex-1 bg-white/[0.92]" />
-                    <View className="flex-1 bg-white/60" />
-                    <View className="flex-1 bg-white/30" />
-                    <View className="flex-1 bg-white/[0.08]" />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.92)",
+                        }}
+                    />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.6)",
+                        }}
+                    />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.3)",
+                        }}
+                    />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.08)",
+                        }}
+                    />
                 </View>
 
-                {/* ── Bottom fade mask ── */}
+                {/* Bottom fade mask */}
                 <View
-                    className="absolute bottom-0 left-0 right-0 z-20 flex-col"
-                    style={{ height: ITEM_HEIGHT * EDGE_ITEMS }}
                     pointerEvents="none"
+                    style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: ITEM_HEIGHT * EDGE_ITEMS,
+                        zIndex: 2,
+                        flexDirection: "column",
+                    }}
                 >
-                    <View className="flex-1 bg-white/[0.08]" />
-                    <View className="flex-1 bg-white/30" />
-                    <View className="flex-1 bg-white/60" />
-                    <View className="flex-1 bg-white/[0.92]" />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.08)",
+                        }}
+                    />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.3)",
+                        }}
+                    />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.6)",
+                        }}
+                    />
+                    <View
+                        style={{
+                            flex: 1,
+                            backgroundColor: "rgba(255,255,255,0.92)",
+                        }}
+                    />
                 </View>
             </View>
         );

@@ -6,13 +6,14 @@ import { isActivityValid } from "@/shared/lib/activity";
 
 export default function SubmitButton() {
     const insets = useSafeAreaInsets();
-    const { activityForm, isLoading, setActivityForm, handleAdd } =
+    const { activityForm, isLoading, error, handleAdd } =
         useActivityFormContext();
 
     const isInputValid = isActivityValid(activityForm);
 
     return (
         <View className="p-4 absolute bottom-0 left-0 right-0">
+            <Text>{error}</Text>
             <TouchableOpacity
                 disabled={!isInputValid}
                 className={clsx(

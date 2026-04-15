@@ -73,7 +73,7 @@ export default function Header() {
                     <Text className="text-2xl text-neutral-900">
                         {phrase.title}
                     </Text>
-                    <Text className="text-4xl leading-normal text-neutral-900">
+                    <Text className="text-5xl leading-normal text-neutral-900">
                         {phrase.subtitle}
                     </Text>
                 </View>

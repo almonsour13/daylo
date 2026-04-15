@@ -47,7 +47,7 @@ const RepeatDaysDrawer = forwardRef<DrawerHandle, Props>(
                 triggerButton={children}
             >
                 <ColumnView>
-                    <View className="">
+                    <View className="py-4">
                         {ACTIVITY_REAPEAT_DAYS.map((day) => {
                             const isSelected = repeatDays.includes(day);
                             return (

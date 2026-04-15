@@ -6,11 +6,10 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { format } from "date-fns";
 import { Text, View } from "react-native";
 import DateDrawer from "../drawer/date-drawer";
-import EndTimeDrawer from "../drawer/end-time-drawer";
 import RepeatTypeDrawer from "../drawer/repeat-type-drawer";
-import StartTimeDrawer from "../drawer/start-time-drawer";
 import { capitalize } from "@/shared/utils/string";
 import { parseRepeat } from "@/shared/utils/activity";
+import TimeRangeDrawer from "../drawer/time-range-drawer";
 
 export default function ScheduleGroup() {
     const { activityForm } = useActivityFormContext();
@@ -25,32 +24,37 @@ export default function ScheduleGroup() {
             name: "Date",
             value: activityForm.date
                 ? (safeFormat(new Date(activityForm.date), "dd, MMM yyyy") ??
-                  "Select Date")
-                : "Select Date",
+                  "Select Date to Start")
+                : "Select Date to Start",
             drawer: DateDrawer,
         },
         {
-            name: "Start Time",
-            value:
-                activityForm.date && activityForm.startTime
-                    ? format(
-                          toDateTime(activityForm.date, activityForm.startTime),
-                          "p",
-                      )
-                    : "Select Start Time",
-            drawer: StartTimeDrawer,
+            name: "Time",
+            value: (() => {
+                if (!activityForm.date || !activityForm.startTime) {
+                    return "Select Time";
+                }
+
+                const startDt = toDateTime(
+                    activityForm.date,
+                    activityForm.startTime,
+                );
+                if (isNaN(startDt.getTime())) return "Select Start Time";
+                const start = format(startDt, "p");
+
+                if (!activityForm.endTime) return start;
+
+                const endDt = toDateTime(
+                    activityForm.date,
+                    activityForm.endTime,
+                );
+                if (isNaN(endDt.getTime())) return start;
+                const end = format(endDt, "p");
+
+                return `${start} - ${end}`;
+            })(),
+            drawer: TimeRangeDrawer,
         },
-        // {
-        //     name: "End Time",
-        //     value:
-        //         activityForm.date && activityForm.endTime
-        //             ? format(
-        //                   toDateTime(activityForm.date, activityForm.endTime),
-        //                   "p",
-        //               )
-        //             : "Select End Time",
-        //     drawer: EndTimeDrawer,
-        // },
         {
             name: "Repeat",
             value:
@@ -62,10 +66,11 @@ export default function ScheduleGroup() {
             drawer: RepeatTypeDrawer,
         },
     ];
+
     return (
         <ColumnView>
             <Label>Schedule</Label>
-            <View className=" rounded-xl overflow-hidden bg-gray-100">
+            <View className="rounded-xl overflow-hidden bg-gray-100">
                 {schedule.map((item) => (
                     <item.drawer key={item.name}>
                         <RowView className="p-4 rounded-md justify-between items-center bg-gray-100">

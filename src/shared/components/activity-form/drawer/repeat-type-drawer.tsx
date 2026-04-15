@@ -36,7 +36,7 @@ export default function RepeatTypeDrawer({ children }: Props) {
     return (
         <>
             <Drawer ref={drawerRef} triggerButton={children}>
-                <View className="pb-4">
+                <View className="py-4">
                     {ACTIVITY_REPEAT_TYPE.map((item) => {
                         const isSelected = activityForm.repeatType === item;
                         return (

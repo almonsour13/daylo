@@ -16,7 +16,7 @@ export default function CategoryDrawer({ children }: Props) {
     const { activityForm, setActivityForm } = useActivityFormContext();
     return (
         <Drawer ref={drawerRef} triggerButton={children}>
-            <View className="pb-4">
+            <View className="py-4">
                 {ACTIVITY_CATEGORIES.map((category, index) => {
                     const isSelected = activityForm.category === category;
                     const cat = CATEGORY[category];

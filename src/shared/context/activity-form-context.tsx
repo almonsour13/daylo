@@ -12,16 +12,17 @@ import { Activity } from "@/shared/types/activity";
 import { isActivityValid } from "@/shared/lib/activity";
 
 const DEFAULT_FORM: ActivityForm = {
-    name: "",
-    description: "",
-    priority: "none",
-    category: "none",
+    name: "Morning Workout",
+    description:
+        "Start the day with a structured workout routine that includes light stretching, mobility exercises, and a mix of cardio and strength training.",
+    priority: "high",
+    category: "work",
     date: new Date().toISOString().split("T")[0],
-    startTime: "12:01",
-    endTime: "",
+    startTime: "18:00",
+    endTime: "19:00",
     status: "active",
-    repeatType: "once",
-    repeatDays: "[]",
+    repeatType: "custom",
+    repeatDays: JSON.stringify(["Tue", "Thu", "Sat"]),
     notificationEnabled: 1,
 };
 export type ActivityForm = Omit<Activity, "id" | "createdAt" | "updatedAt">; // ✅ omit auto-managed fields
@@ -103,6 +104,7 @@ export function ActivityFormProvider({
             }
         } catch (e) {
             setError("Something went wrong");
+            console.log("[ActivityFormContext] error:", e);
         } finally {
             setIsLoading(false);
         }
@@ -113,15 +115,15 @@ export function ActivityFormProvider({
         try {
             setIsLoading(true);
             setError("");
-            const data = await activityService.createActivity({
-                ...activityForm,
-                repeatDays: JSON.stringify(activityForm.repeatDays),
-            });
+            console.log("[ActivityFormContext] activityForm:", activityForm);
+            const data = await activityService.createActivity(activityForm);
             if (data) {
+                console.log("[ActivityFormContext] data:", data);
                 setActivities((prev) => [...prev, data]);
                 router.back();
             }
         } catch (error) {
+            console.log("[ActivityFormContext] error:", error);
             setError("Something went wrong");
         } finally {
             setIsLoading(false);

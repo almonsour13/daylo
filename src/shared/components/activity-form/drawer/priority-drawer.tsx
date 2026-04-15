@@ -16,7 +16,7 @@ export default function PriorityDrawer({ children }: Props) {
 
     return (
         <Drawer ref={drawerRef} triggerButton={children}>
-            <View className="pb-4">
+            <View className="py-4">
                 {ACTIVITY_PRIORITY.map((priority, index) => {
                     const isSelected = activityForm.priority === priority;
                     return (

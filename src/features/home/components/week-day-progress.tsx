@@ -36,7 +36,7 @@ export default function WeekDaysProgress() {
                     return (
                         <View
                             className={clsx(
-                                "w-12 py-3 flex-col gap-2 justify-between items-center rounded-md",
+                                "w-12 py-3 flex-col gap-2 justify-between items-center rounded-xl",
                                 isToday ? "bg-black" : "bg-white",
                             )}
                             key={day}

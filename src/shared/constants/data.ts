@@ -107,7 +107,7 @@ export const activitiesData = (): Activity[] => {
             name: "Spanish Lesson",
             description:
                 "Practice vocabulary, grammar and conversational Spanish for 30 minutes using Duolingo or a textbook.",
-            date: dayOffset(1),
+            date: dayOffset(2),
             startTime: toTime(19, 30),
             endTime: toTime(20, 0),
             repeatType: "custom",
@@ -124,7 +124,7 @@ export const activitiesData = (): Activity[] => {
             name: "Budget Review",
             description:
                 "Review monthly expenses, update budget spreadsheet and check savings goals progress.",
-            date: dayOffset(2),
+            date: dayOffset(3),
             startTime: toTime(20, 0),
             endTime: toTime(20, 30),
             repeatType: "once",
@@ -141,7 +141,7 @@ export const activitiesData = (): Activity[] => {
             name: "Meditation",
             description:
                 "10 minutes of mindfulness and breathing exercises to wind down before bed.",
-            date: dayOffset(0),
+            date: dayOffset(4),
             startTime: toTime(21, 0),
             endTime: toTime(21, 15),
             repeatType: "daily",
@@ -158,7 +158,7 @@ export const activitiesData = (): Activity[] => {
             name: "Family Dinner",
             description:
                 "Have dinner with family. No phones at the table. Catch up on everyone's day.",
-            date: dayOffset(-1),
+            date: dayOffset(6),
             startTime: toTime(18, 30),
             endTime: toTime(19, 30),
             repeatType: "custom",

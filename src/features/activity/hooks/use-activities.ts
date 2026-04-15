@@ -16,9 +16,9 @@ export const useActivities = () => {
         try {
             setIsActivitiesLoading(true);
             setActivitiesError("");
-            // const data = await activityService.getActivities();
-            const s = activitiesData();
-            setActivities(s);
+            const data = await activityService.getActivities();
+            // const data = activitiesData();
+            setActivities(data);
         } catch (e) {
             setActivitiesError("Failed to load activities");
         } finally {
