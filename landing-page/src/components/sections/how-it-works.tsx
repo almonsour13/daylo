@@ -40,7 +40,7 @@ export default function HowItWorks() {
                     </p>
                 </Column>
 
-                <div className="grid lg:grid-cols-2 gap-2 md:gap-4">
+                <div className="grid lg:grid-cols-2 gap-4">
                     {STEPS.map((s, i) => (
                         <Card key={s.title} className="bg-transparent">
                             <Column>

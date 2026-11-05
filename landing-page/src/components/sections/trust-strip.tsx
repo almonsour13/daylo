@@ -37,7 +37,7 @@ const POINTS: Point[] = [
 export default function TrustStrip() {
     return (
         <SectionWrapper id="benefits">
-            <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
+            <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {POINTS.map(({ icon: Icon, title, desc }, i) => (
                     <Card
                         key={title}

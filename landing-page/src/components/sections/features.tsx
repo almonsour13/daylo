@@ -96,7 +96,7 @@ export default function Features() {
                         </div>
                     </div>
 
-                    <Column className="gap-2 md:gap-4 lg:flex-2">
+                    <Column className="gap-4 lg:flex-2">
                         {FEATURES.map(
                             ({ icon: Icon, title, desc, benefit }) => (
                                 <Card

@@ -55,7 +55,7 @@ export default function Lifestyle() {
                         upcoming commitments together in one organized schedule.
                     </p>
                 </Column>
-                <div className="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+                <div className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
                     {USE_CASES.map(({ title, desc, image, alt }) => (
                         <Column key={title} className="gap-4">
                             <div className="relative aspect-square overflow-hidden rounded bg-muted">
@@ -67,7 +67,7 @@ export default function Lifestyle() {
                                     className="object-cover"
                                 />
                             </div>
-                            <Column className="gap-1.5">
+                            <Column className="gap-2">
                                 <h3 className="text-lg font-normal text-foreground">
                                     {title}
                                 </h3>
