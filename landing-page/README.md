@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Daylo Landing Page
 
-## Getting Started
+The Daylo landing page introduces the Daylo mobile planner and provides product information and Android download links. It is built with Next.js and TypeScript.
 
-First, run the development server:
+## Features
 
-```bash
+- Product overview, feature descriptions, and app screen previews.
+- How-it-works, local data and privacy information, and frequently asked questions.
+- Light and dark themes, responsive layouts, and reduced-motion-aware screen transitions.
+- Android download links based on the latest GitHub release, with a fallback download URL.
+
+## Requirements
+
+- Node.js and npm.
+
+## Local development
+
+From this directory, install dependencies and start the development server:
+
+```powershell
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000). The page reloads as you make changes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the local development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
+| `npm run clean` | Remove the generated `.next` directory |
 
-## Learn More
+To check a production build locally:
 
-To learn more about Next.js, take a look at the following resources:
+```powershell
+npm run build
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Configuration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Set `NEXT_PUBLIC_SITE_URL` to the canonical public URL when deploying. It is used as the metadata base for absolute social-preview URLs; when unset, the site defaults to `http://localhost:3000`.
 
-## Deploy on Vercel
+The download section requests the latest release from the GitHub Releases API for `almonsour13/daylo`, and uses the release's APK asset when available. If the request fails or no release is available, the page uses its configured fallback download link.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+src/
+├── app/                     # App Router entry point, layout, and global styles
+├── components/
+│   ├── layout/              # Site header and footer
+│   ├── sections/            # Landing page content sections
+│   └── ui/                  # Shared interface components
+├── constants/               # App screen image paths and metadata
+└── hooks/                   # Theme and section observation helpers
+public/
+└── app/                     # Light and dark mobile app screenshots
+```
+
+The landing page is composed in `src/app/page.tsx`. Global SEO and theme setup are in `src/app/layout.tsx`.
+
+## Deployment
+
+Build and run the site with the production commands above, or deploy it to a platform that supports Next.js. Set `NEXT_PUBLIC_SITE_URL` to the deployed site URL so metadata and social previews use the correct origin.
